@@ -1,0 +1,33 @@
+package by.htp.ex.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+@Controller
+@RequestMapping("/")
+@SessionAttributes("errorCodes")
+public class VisualStatePageController {
+	@GetMapping("/")
+	public String getIndexPage() {
+		return "basePage";
+	}
+
+	@GetMapping("/{path}")
+	public String getElement(@PathVariable(value = "path") String path) {
+		return path;
+	}
+
+	@GetMapping("/error")
+	public String getError(SessionStatus sessionStatus, HttpServletResponse response) {
+		sessionStatus.setComplete();
+		response.setStatus(418);
+		return "error";
+	}
+
+}
