@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 @SessionAttributes("errorCodes")
 public class VisualStatePageController {
+	
 	@GetMapping("/")
 	public String getIndexPage() {
 		return "basePage";

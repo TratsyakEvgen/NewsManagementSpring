@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.hibernate.Hibernate;
 import org.hibernate.query.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import by.htp.ex.dao.AbstractDAO;
 import by.htp.ex.dao.DaoException;
@@ -13,7 +13,7 @@ import by.htp.ex.dao.NewsDAO;
 import by.htp.ex.entity.News;
 import jakarta.persistence.NoResultException;
 
-@Component
+@Repository
 public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 
 	public NewsDAOImpl() {
@@ -21,29 +21,27 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 	}
 
 	@Override
-	public Optional<List<News>> getActiveNewsFetchLocaleContent(String locale) throws DaoException {
+	public List<News> getActiveNewsFetchLocaleContent(String locale) throws DaoException {
 		try {
 			Query<News> query = getSession().createQuery(
 					"FROM News n JOIN FETCH n.contents JOIN n.contents.locale l WHERE n.status = true AND l.locale = :locale",
 					clazz);
 			query.setParameter("locale", locale);
-			return Optional.ofNullable(query.getResultList());
+			return query.getResultList();
 		} catch (Exception e) {
 			throw new DaoException("Can't get active news and fetch locale content", e);
 		}
 	}
 
 	@Override
-	public Optional<List<News>> getActiveNewsFetchLocaleContentAndImages(String locale) throws DaoException {
+	public List<News> getActiveNewsFetchLocaleContentAndImages(String locale) throws DaoException {
 		try {
-			Optional<List<News>> listNews = getActiveNewsFetchLocaleContent(locale);
-			listNews.ifPresent(news -> {
-				Query<News> query = getSession().createQuery(
+			List<News> listNews = getActiveNewsFetchLocaleContent(locale);
+			if (!listNews.isEmpty()) {
+				listNews = getSession().createQuery(
 						"FROM News n JOIN n.contents.locale l LEFT JOIN FETCH n.images i WHERE n.status = true AND l.locale = :locale AND i.status = true",
-						clazz);
-				query.setParameter("locale", locale);
-				news = query.getResultList();
-			});
+						clazz).getResultList();
+			}
 			return listNews;
 		} catch (Exception e) {
 			throw new DaoException("Can't get active news and fetch locale contents and images", e);
@@ -72,7 +70,7 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 	}
 
 	@Override
-	public Optional<List<News>> getAllNewsFetchAll() throws DaoException {
+	public List<News> getAllNewsFetchAll() throws DaoException {
 		try {
 			List<News> listNews = getSession().createQuery(
 					"FROM News n LEFT JOIN FETCH n.contents c LEFT JOIN FETCH n.user LEFT JOIN FETCH c.locale", clazz)
@@ -80,7 +78,7 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 			if (!listNews.isEmpty()) {
 				listNews = getSession().createQuery("FROM News n LEFT JOIN FETCH n.images", clazz).getResultList();
 			}
-			return Optional.ofNullable(listNews);
+			return listNews;
 		} catch (Exception e) {
 			throw new DaoException("Can't get all and fetch all", e);
 		}

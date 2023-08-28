@@ -26,7 +26,7 @@
 			href="javascript: get('main', '#main', 'news/newsManagement')">${news_management}</a>
 			<hr class="my-3"></li>
 		<li><a class="text-decoration-none text-reset"
-			href="controller?command=go_to_gallery">${gallery}</a>
+			href="javascript: get('main', '#main', 'images/get')">${gallery}</a>
 			<hr class="my-3"></li>
 		<li><a class="text-decoration-none text-reset"
 			href="javascript: get('main', '#main', 'files/get?dir=images')">${file_system_images}</a>

@@ -1,23 +1,20 @@
 package by.htp.ex.dao;
 
-import java.util.Collection;
 import java.util.List;
-
-
 
 public interface DAO<E>{
 	
 	public E get(int id);
 	
-	public List<E> getAll();
+	public List<E> getAll() throws DaoException;
 	
-	public void create(E entity);
+	public void create(E entity) throws DaoException;
 	
 	public void delete(E entity);
 	
 	public void update(E entity);
 	
-	public List<E> find(E entity, Collection<String> fetch);
+	public List<E> findByFields(E entity) throws DaoException;
 	
 
 }
