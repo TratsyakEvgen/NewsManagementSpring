@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-import by.htp.ex.util.name.StringName;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +20,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = StringName.NEWS)
+@Table(name = "news")
 @Data
 public class News implements Serializable {
 
@@ -29,27 +28,27 @@ public class News implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = StringName.ID)
+	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = StringName.DATE_TIME)
+	@Column(name = "date_time")
 	private Timestamp dateTime;
 
-	@Column(name = StringName.STATUS)
+	@Column(name = "status")
 	private Boolean status;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name = StringName.USER_ID)
-	private User user;
+	@JoinColumn(name = "user_ditails_id")
+	private UserDitails userDitails;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = StringName.IMAGE_NEWS, 
-	joinColumns = @JoinColumn(name = StringName.NEWS_ID), 
-	inverseJoinColumns = @JoinColumn(name = StringName.IMAGE_ID))
+	@JoinTable(name ="image_news", 
+	joinColumns = @JoinColumn(name = "news_id"), 
+	inverseJoinColumns = @JoinColumn(name = "image_id"))
 	private List<Image> images;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = StringName.NEWS)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "news")
 	private List<Content> contents;
 
 

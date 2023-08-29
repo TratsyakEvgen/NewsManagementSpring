@@ -3,7 +3,6 @@ package by.htp.ex.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import by.htp.ex.util.name.StringName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = StringName.IMAGE)
+@Table(name = "image")
 @Data
 public class Image implements Serializable {
 
@@ -22,16 +21,16 @@ public class Image implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = StringName.ID)
+	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = StringName.LINK)
+	@Column(name = "link")
 	private String link;
 	
-	@Column(name = StringName.STATUS)
+	@Column(name = "status")
 	private Boolean status;
 	
-	@ManyToMany(mappedBy = StringName.IMAGES)
+	@ManyToMany(mappedBy = "images")
 	private List<News> news;
 
 

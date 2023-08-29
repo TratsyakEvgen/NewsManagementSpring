@@ -38,9 +38,11 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 		try {
 			List<News> listNews = getActiveNewsFetchLocaleContent(locale);
 			if (!listNews.isEmpty()) {
-				listNews = getSession().createQuery(
+				Query<News> query = getSession().createQuery(
 						"FROM News n JOIN n.contents.locale l LEFT JOIN FETCH n.images i WHERE n.status = true AND l.locale = :locale AND i.status = true",
-						clazz).getResultList();
+						clazz);
+				query.setParameter("locale", locale);
+				listNews = query.getResultList();
 			}
 			return listNews;
 		} catch (Exception e) {
@@ -52,7 +54,7 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 	public Optional<News> getNewsByIdAndLocaleContentFetchAll(int idNews, String locale) throws DaoException {
 		try {
 			Query<News> query = getSession().createQuery(
-					"FROM News n JOIN FETCH n.contents JOIN FETCH n.user JOIN n.contents.locale l WHERE n.id = :id AND l.locale = :locale",
+					"FROM News n JOIN FETCH n.contents JOIN FETCH n.userDitails JOIN n.contents.locale l WHERE n.id = :id AND l.locale = :locale",
 					clazz);
 			query.setParameter("id", idNews);
 			query.setParameter("locale", locale);
@@ -73,7 +75,7 @@ public class NewsDAOImpl extends AbstractDAO<News> implements NewsDAO {
 	public List<News> getAllNewsFetchAll() throws DaoException {
 		try {
 			List<News> listNews = getSession().createQuery(
-					"FROM News n LEFT JOIN FETCH n.contents c LEFT JOIN FETCH n.user LEFT JOIN FETCH c.locale", clazz)
+					"FROM News n LEFT JOIN FETCH n.contents c LEFT JOIN FETCH n.userDitails LEFT JOIN FETCH c.locale", clazz)
 					.getResultList();
 			if (!listNews.isEmpty()) {
 				listNews = getSession().createQuery("FROM News n LEFT JOIN FETCH n.images", clazz).getResultList();

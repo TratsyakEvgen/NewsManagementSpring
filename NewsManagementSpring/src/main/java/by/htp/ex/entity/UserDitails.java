@@ -4,47 +4,49 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-import by.htp.ex.util.name.StringName;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = StringName.USER)
+@Table(name = "user_ditails")
 @Data
-public class User implements Serializable{
+public class UserDitails implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = StringName.ID)
-	private Integer id;
+    @Column(name = "user_id")
+    private Integer id;
 	
-	@Column(name = StringName.NAME)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "user_id")
+	private User user;
+	
+	@Column(name = "name")
 	private String name;
 	
-	@Column(name = StringName.SURNAME)
+	@Column(name = "surname")
 	private String surname;
 	
-	@Column(name = StringName.EMAIL)
+	@Column(name = "email")
 	private String email;
 	
-	@Column(name = StringName.DATE)
+	@Column(name = "date")
 	private Date date;
 	
-	@Column(name = StringName.STATUS)
-	private Boolean status;
 	
 	@OneToMany(fetch=FetchType.LAZY,
-			   mappedBy="user",
+			   mappedBy="userDitails",
 			   cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 						 CascadeType.DETACH, CascadeType.REFRESH})
 	private List<News> news;

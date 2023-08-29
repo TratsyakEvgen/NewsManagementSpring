@@ -16,7 +16,10 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>by.htp.ex.config.WebConfig</param-value>
+			<param-value>
+			by.htp.ex.config.WebConfig,
+			by.htp.ex.config.SecurityWebConfig
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<multipart-config>

@@ -68,7 +68,7 @@
 								</div>
 								<hr class="my-3">
 							</c:forEach></td>
-						<c:set var="user" value="${news.user}" />
+						<c:set var="user" value="${news.userDitails}" />
 						<td>
 							<div>${id}:${user.id}</div>
 							<div>${first_name}:${user.name}</div>

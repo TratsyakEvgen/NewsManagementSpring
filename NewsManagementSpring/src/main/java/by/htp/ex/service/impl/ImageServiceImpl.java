@@ -53,7 +53,17 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	@Transactional
 	public void update(Image image) throws ServiceException {
-		System.out.println(image.getId());
+		Image searchImage = new Image();
+		searchImage.setLink(image.getLink());
+		try {
+			long count = dao.findByFields(searchImage).stream().filter(t -> t.getId() != image.getId()).count();
+			if (count > 0) {
+				throw new ServiceException(ErrorCode.IMAGE_ALREADY_EXIST);
+			}
+			dao.update(image);
+		} catch (DaoException e) {
+			throw new ServiceException("Can't update image", e);
+		}
 
 	}
 

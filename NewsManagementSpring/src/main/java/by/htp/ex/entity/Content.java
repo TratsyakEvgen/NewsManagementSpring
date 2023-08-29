@@ -2,7 +2,6 @@ package by.htp.ex.entity;
 
 import java.io.Serializable;
 
-import by.htp.ex.util.name.StringName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,7 +14,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = StringName.CONTENT)
+@Table(name = "content")
 @Data
 public class Content implements Serializable {
 
@@ -23,21 +22,21 @@ public class Content implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = StringName.ID)
+	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = StringName.LINK)
+	@Column(name = "link")
 	private String link;
 
-	@Column(name = StringName.TITLE)
+	@Column(name = "title")
 	private String title;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = StringName.NEWS_ID)
+	@JoinColumn(name = "news_id")
 	private News news;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = StringName.LOCALE_ID)
+	@JoinColumn(name = "locale_id")
 	private Locale locale;
 
 }
