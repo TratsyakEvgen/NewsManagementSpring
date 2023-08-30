@@ -11,7 +11,8 @@ public enum ErrorCode {
 	IMAGE_ALREADY_EXIST("local.image.already.exists"),
 	FILES_NOT_FOUND("local.files.not.found"),
 	IMAGES_NOT_FOUND("local.images.not.found"),
-	INTERAL_SERVER_ERROR("local.internal.server.error");
+	INTERAL_SERVER_ERROR("local.internal.server.error"),
+	INCORRECT_LOGIN_OR_PASSWORD("");
 
 	private String title;
 

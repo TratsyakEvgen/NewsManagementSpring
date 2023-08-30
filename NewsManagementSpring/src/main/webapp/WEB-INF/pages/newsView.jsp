@@ -52,7 +52,7 @@
 					<h5>${author}</h5>
 				</div>
 				<div class="col-10">
-					<c:set var="author" value="${news.user}"></c:set>
+					<c:set var="author" value="${news.userDitails}"></c:set>
 					<h5>${author.surname}${author.name}</h5>
 				</div>
 			</div>

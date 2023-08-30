@@ -1,6 +1,5 @@
 package by.htp.ex.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import by.htp.ex.service.FileSystemService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.impl.DirectoryName;
+import by.htp.ex.util.ErrorCode;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
 
@@ -42,7 +42,7 @@ public class FileController {
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		} catch (IllegalArgumentException | NullPointerException e) {
-			return ErrorHandler.handle(new ServiceException(e), model);
+			return ErrorHandler.handle(ErrorCode.INTERAL_SERVER_ERROR, model);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class FileController {
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		} catch (IllegalArgumentException | NullPointerException e) {
-			return ErrorHandler.handle(new ServiceException(e), model);
+			return ErrorHandler.handle(ErrorCode.INTERAL_SERVER_ERROR, model);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class FileController {
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		} catch (IllegalArgumentException | NullPointerException e) {
-			return ErrorHandler.handle(new ServiceException(e), model);
+			return ErrorHandler.handle(ErrorCode.INTERAL_SERVER_ERROR, model);
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class FileController {
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		} catch (IllegalArgumentException | NullPointerException e) {
-			return ErrorHandler.handle(new ServiceException(e), model);
+			return ErrorHandler.handle(ErrorCode.INTERAL_SERVER_ERROR, model);
 		}
 	}
 

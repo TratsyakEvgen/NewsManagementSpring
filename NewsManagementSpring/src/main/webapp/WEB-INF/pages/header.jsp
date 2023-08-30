@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
+
 
 
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -25,17 +28,19 @@
 	<div class="container-fluid">
 		<div class="mb-2 me-2">
 			<a class="navbar-brand" type="button" data-bs-toggle="dropdown">${news_management}</a>
-			<ul class="dropdown-menu">
-				<li><a class="dropdown-item"
-					href="controller?command=go_to_base_page">${main}</a></li>
-
-				<li><a class="dropdown-item"
-					href="javascript: get('menu', '#menu', 'menuControlPanel')">${control_panel}</a></li>
-
-				<li><a href="controller?command=go_to_account"
-					class="dropdown-item">${profile}</a></li>
-				<li><a href="controller?command=do_sign_out"
-					class="dropdown-item">${sign_out}</a></li>
+			<ul class="dropdown-menu">				
+					<li><a class="dropdown-item"
+						href="controller?command=go_to_base_page">${main}</a></li>
+				<security:authorize access="isAuthenticated()">		
+					<security:authorize access="hasRole('admin')">
+						<li><a class="dropdown-item"
+							href="javascript: get('menu', '#menu', 'menuControlPanel')">${control_panel}</a></li>
+					</security:authorize>
+					<li><a href="controller?command=go_to_account"
+						class="dropdown-item">${profile}</a></li>
+					<li><a href="controller?command=do_sign_out"
+						class="dropdown-item">${sign_out}</a></li>
+				</security:authorize>
 			</ul>
 		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -64,22 +69,17 @@
 
 
 
-			<c:if test="${user == null}">
-				<a href="controller?command=go_to_authentication"
+			<security:authorize access="isAnonymous()">
+				<a href="javascript: get('main', '#main', 'login')"
 					class="btn btn-dark btn-outline-light mb-2 me-2">${sign_in}</a>
-			</c:if>
+			</security:authorize>
 
-			<c:if test="${user != null}">
-				<div class="d-flex mb-2 me-2">
-					<a href="controller?command=go_to_account"
-						class="btn btn-dark btn-outline-light">${user.surname}
-						${user.name}</a>
-				</div>
+			<security:authorize access="isAuthenticated()">
 				<div class="d-flex mb-2 me-2">
 					<a href="controller?command=do_sign_out"
 						class="btn btn-dark btn-outline-light">${sign_out}</a>
 				</div>
-			</c:if>
+			</security:authorize>
 
 		</div>
 	</div>

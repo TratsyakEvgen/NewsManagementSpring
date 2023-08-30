@@ -22,14 +22,17 @@
 	function initCookie() {
 		if ($.cookie('menu') == undefined) {
 			$.cookie('menu', 'news/newsline');
+			$.cookie('menuBack', 'news/newsline');
 		}
 
 		if ($.cookie('header') == undefined) {
 			$.cookie('header', 'header');
+			$.cookie('headerBack', 'header');
 		}
 
 		if ($.cookie('main') == undefined) {
 			$.cookie('main', 'news/newsCarousel');
+			$.cookie('mainBack', 'news/newsCarousel');
 		}
 
 		if ($.cookie('locale') == undefined) {
@@ -49,6 +52,9 @@
 			type : "GET",
 			statusCode : {
 				200 : function(data) {
+					if ($.cookie(cookieName) != url) {
+						$.cookie(cookieName + 'Back', $.cookie(cookieName));						
+					}
 					$.cookie(cookieName, url);
 					$(element).replaceWith(data);
 				},
@@ -85,13 +91,33 @@
 		});
 	}
 
+	function login() {
+		$.ajax({
+			url : 'login',
+			headers : {
+				'Accept-Language' : $.cookie("locale")
+			},
+			data : $("#login").serialize(),
+			type : "POST",
+			statusCode : {
+				200 : function(data) {
+					$.cookie('main', $.cookie('mainBack'));
+					updateAll();
+				},
+				418 : function(data) {					
+					$("#error").replaceWith(data.responseText);
+				},
+			}
+		});
+	}
+
 	function post(form, element, url) {
 		$.ajax({
 			url : url,
 			headers : {
 				'Accept-Language' : $.cookie("locale")
 			},
-			data: $(form).serialize(),
+			data : $(form).serialize(),
 			type : "POST",
 			statusCode : {
 				200 : function(data) {

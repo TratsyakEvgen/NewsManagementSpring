@@ -12,7 +12,7 @@ public class ErrorHandler {
 
 	private final static String ERROR_PATH = "redirect: /NewsManagementSpring/error";
 
-	static String handle(ServiceException e, Model model) {
+	public static String handle(ServiceException e, Model model) {
 		List<ErrorCode> codes = e.getCodes().orElseGet(() -> {
 			
 			//this should be a logger
@@ -25,6 +25,12 @@ public class ErrorHandler {
 		model.addAttribute("errorCodes", codes);
 
 		return ERROR_PATH;
-
+	}
+	
+	public static String handle(ErrorCode errorCode, Model model) {
+		List<ErrorCode> codes = new ArrayList<>();
+		codes.add(errorCode);
+		model.addAttribute("errorCodes", codes);		
+		return ERROR_PATH;		
 	}
 }

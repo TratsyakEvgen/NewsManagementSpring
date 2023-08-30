@@ -26,8 +26,9 @@
 			<div class="container">
 				<div class="row gy-2">
 					<div class="col-12">
-						<label class="form-label">${link}:</label> <input type="text"
-							name="link" class="form-control">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <label class="form-label">${link}:</label>
+						<input type="text" name="link" class="form-control">
 					</div>
 					<div class="col">
 						<input type="button" class="btn btn-dark btn-outline-light "
@@ -57,11 +58,12 @@
 					${update}</button>
 				<div class="collapse" id="${image.id}">
 					<form id="update_${image.id}">
-						<input type="hidden" name="id" value="${image.id}"> <label
-							class="form-label">${link}:</label> <input type="text"
-							name="link" class="form-control" value="${image.link}"> <label
-							class="form-label">${status}:</label> <select class="form-select"
-							name="status">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <input type="hidden" name="id"
+							value="${image.id}"> <label class="form-label">${link}:</label>
+						<input type="text" name="link" class="form-control"
+							value="${image.link}"> <label class="form-label">${status}:</label>
+						<select class="form-select" name="status">
 							<option value="true" <c:if test="${image.status}">selected</c:if>>
 								${active}</option>
 							<option value="false"
