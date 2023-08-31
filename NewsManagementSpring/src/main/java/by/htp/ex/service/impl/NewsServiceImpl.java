@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.NewsDAO;
-
-import by.htp.ex.entity.News;
+import by.htp.ex.model.entity.News;
 import by.htp.ex.service.NewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.util.ErrorCode;

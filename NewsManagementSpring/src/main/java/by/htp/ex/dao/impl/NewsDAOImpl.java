@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import by.htp.ex.dao.AbstractDAO;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.NewsDAO;
-import by.htp.ex.entity.News;
+import by.htp.ex.model.entity.News;
 import jakarta.persistence.NoResultException;
 
 @Repository

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import by.htp.ex.entity.News;
+import by.htp.ex.model.entity.News;
 import by.htp.ex.service.NewsService;
 import by.htp.ex.service.ServiceException;
 

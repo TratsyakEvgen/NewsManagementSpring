@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import by.htp.ex.dao.AbstractDAO;
 import by.htp.ex.dao.UserDAO;
-import by.htp.ex.entity.User;
+import by.htp.ex.model.entity.User;
 
 @Repository
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO{

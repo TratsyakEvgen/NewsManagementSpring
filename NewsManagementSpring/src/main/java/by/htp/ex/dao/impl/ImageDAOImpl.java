@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import by.htp.ex.dao.AbstractDAO;
 import by.htp.ex.dao.ImageDAO;
-import by.htp.ex.entity.Image;
+import by.htp.ex.model.entity.Image;
 
 @Repository
 public class ImageDAOImpl extends AbstractDAO<Image> implements ImageDAO {

@@ -1,7 +1,8 @@
 package by.htp.ex.service;
 
 import java.util.List;
-import by.htp.ex.entity.News;
+
+import by.htp.ex.model.entity.News;
 
 public interface NewsService {
 	

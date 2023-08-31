@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import by.htp.ex.entity.Image;
+import by.htp.ex.model.entity.Image;
 import by.htp.ex.service.ImageService;
 import by.htp.ex.service.ServiceException;
 

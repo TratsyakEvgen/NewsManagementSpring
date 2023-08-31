@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import by.htp.ex.entity.Content;
-import by.htp.ex.entity.Locale;
+import by.htp.ex.model.entity.Content;
+import by.htp.ex.model.entity.Locale;
 import by.htp.ex.service.ContentService;
 
 @Component

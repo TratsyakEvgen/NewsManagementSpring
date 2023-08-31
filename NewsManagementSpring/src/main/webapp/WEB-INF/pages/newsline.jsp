@@ -6,13 +6,12 @@
 
 <fmt:setBundle basename="localization.local" var="loc" />
 
-<div class="offcanvas-body d-md-flex flex-column p-1 pt-lg-3" id="menu">
-	<c:forEach var="news" items="${listNews}">
-		<a class="text-decoration-none text-reset"
-			href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')">
-			${news.contents.get(0).title} </a>
-		<fmt:formatDate type="both" dateStyle="long" timeStyle="long"
-			value="${news.dateTime}" />
-		<hr class="my-3">
-	</c:forEach>
-</div>
+
+<c:forEach var="news" items="${listNews}">
+	<a class="text-decoration-none text-reset"
+		href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')">
+		${news.contents.get(0).title} </a>
+	<fmt:formatDate type="both" dateStyle="long" timeStyle="long"
+		value="${news.dateTime}" />
+	<hr class="my-3">
+</c:forEach>

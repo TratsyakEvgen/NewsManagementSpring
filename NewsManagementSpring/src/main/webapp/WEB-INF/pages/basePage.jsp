@@ -53,13 +53,13 @@
 			statusCode : {
 				200 : function(data) {
 					if ($.cookie(cookieName) != url) {
-						$.cookie(cookieName + 'Back', $.cookie(cookieName));						
+						$.cookie(cookieName + 'Back', $.cookie(cookieName));
 					}
 					$.cookie(cookieName, url);
-					$(element).replaceWith(data);
+					$(element).html(data);
 				},
 				418 : function(data) {
-					$("#error").replaceWith(data.responseText);
+					$("#error").html(data.responseText);
 				},
 			}
 		});
@@ -82,10 +82,10 @@
 			cache : false,
 			statusCode : {
 				200 : function(data) {
-					$(element).replaceWith(data);
+					$(element).html(data);
 				},
 				418 : function(data) {
-					$("#error").replaceWith(data.responseText);
+					$("#error").html(data.responseText);
 				},
 			}
 		});
@@ -104,8 +104,8 @@
 					$.cookie('main', $.cookie('mainBack'));
 					updateAll();
 				},
-				418 : function(data) {					
-					$("#error").replaceWith(data.responseText);
+				418 : function(data) {
+					$("#error").html(data.responseText);
 				},
 			}
 		});
@@ -121,10 +121,10 @@
 			type : "POST",
 			statusCode : {
 				200 : function(data) {
-					$(element).replaceWith(data);
+					$(element).html(data);
 				},
 				418 : function(data) {
-					$("#error").replaceWith(data.responseText);
+					$("#error").html(data.responseText);
 				},
 			}
 		});
@@ -146,9 +146,12 @@
 
 <body class="d-flex flex-column h-100">
 	<header class="navbar bg-dark sticky-top navbar-expand-lg"
-		data-bs-theme="dark" id="header"></header>
+		data-bs-theme="dark" id="header">
+		
+	</header>
 
 	<div class="toast-container position-fixed top-0 end-0 p-5" id="error">
+		
 	</div>
 
 
@@ -164,12 +167,15 @@
 							data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu"></button>
 					</div>
 					<div class="offcanvas-body d-md-flex flex-column p-1 pt-lg-3"
-						id="menu"></div>
+						id="menu">
+						
+					</div>
 				</div>
 			</div>
 
 			<main class="col-md-8 ms-sm-auto col-lg-9 px-md-4">
-				<div class="container" id="main"></div>
+				<div class="container h-100" id="main">
+				</div>
 			</main>
 		</div>
 	</div>

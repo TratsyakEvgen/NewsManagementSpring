@@ -18,7 +18,7 @@ public class HibernateConfig {
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-		factoryBean.setPackagesToScan("by.htp.ex.entity");
+		factoryBean.setPackagesToScan("by.htp.ex.model.entity");
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
 		return factoryBean;
 	}

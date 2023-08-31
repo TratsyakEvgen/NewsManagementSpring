@@ -1,6 +1,6 @@
 package by.htp.ex.dao;
 
-import by.htp.ex.entity.User;
+import by.htp.ex.model.entity.User;
 
 
 public interface UserDAO extends DAO<User>{

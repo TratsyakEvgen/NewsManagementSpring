@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.UserDAO;
-import by.htp.ex.entity.User;
+import by.htp.ex.model.entity.User;
 import jakarta.transaction.Transactional;
 
 @Service

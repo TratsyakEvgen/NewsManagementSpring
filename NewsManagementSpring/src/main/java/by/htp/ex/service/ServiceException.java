@@ -36,6 +36,10 @@ public class ServiceException extends Exception {
 		listCode = new ArrayList<>();
 		listCode.add(code);
 	}
+	
+	public ServiceException(List<ErrorCode> codes) {
+		listCode = new ArrayList<>(codes);
+	}
 
 	public Optional<List<ErrorCode>> getCodes() {
 		return Optional.ofNullable(listCode);

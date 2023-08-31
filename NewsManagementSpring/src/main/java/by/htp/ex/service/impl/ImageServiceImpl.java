@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.ImageDAO;
-import by.htp.ex.entity.Image;
+import by.htp.ex.model.entity.Image;
 import by.htp.ex.service.ImageService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.util.ErrorCode;

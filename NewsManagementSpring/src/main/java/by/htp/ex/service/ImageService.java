@@ -2,7 +2,7 @@ package by.htp.ex.service;
 
 import java.util.List;
 
-import by.htp.ex.entity.Image;
+import by.htp.ex.model.entity.Image;
 
 
 public interface ImageService {
