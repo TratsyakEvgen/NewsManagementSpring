@@ -20,10 +20,12 @@ public class UserSecurity implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = new User();
-		user.setUsername(username);
+		User user = User.builder().username(username).build();
 		try {
-			user = dao.findByFields(user).stream().findFirst().orElseThrow(() -> new UsernameNotFoundException(username));
+			user = dao.getByFields(user).orElseThrow(() -> new UsernameNotFoundException(username));
+			if (!user.getStatus()) {
+				throw new UsernameNotFoundException(username);
+			}
 		} catch (DaoException e) {
 			throw new UsernameNotFoundException(username);
 		}

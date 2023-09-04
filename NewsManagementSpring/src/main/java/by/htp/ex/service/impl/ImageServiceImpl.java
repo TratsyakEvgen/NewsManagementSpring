@@ -36,10 +36,9 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	@Transactional
 	public void add(String link) throws ServiceException {
-		Image image = new Image();
-		image.setLink(link);
+		Image image = Image.builder().link(link).build();
 		try {
-			if (!dao.findByFields(image).isEmpty()) {
+			if (!dao.getListByFields(image).isEmpty()) {
 				throw new ServiceException(ErrorCode.IMAGE_ALREADY_EXIST);
 			}
 			image.setStatus(true);
@@ -53,10 +52,9 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	@Transactional
 	public void update(Image image) throws ServiceException {
-		Image searchImage = new Image();
-		searchImage.setLink(image.getLink());
+		Image searchImage = Image.builder().link(image.getLink()).build();
 		try {
-			long count = dao.findByFields(searchImage).stream().filter(t -> t.getId() != image.getId()).count();
+			long count = dao.getListByFields(searchImage).stream().filter(t -> t.getId() != image.getId()).count();
 			if (count > 0) {
 				throw new ServiceException(ErrorCode.IMAGE_ALREADY_EXIST);
 			}

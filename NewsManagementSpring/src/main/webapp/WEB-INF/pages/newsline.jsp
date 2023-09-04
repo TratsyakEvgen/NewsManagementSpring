@@ -3,13 +3,15 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<fmt:setBundle basename="localization.local" var="loc" />
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 
 <c:forEach var="news" items="${listNews}">
 	<a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')">
+		<security:authorize access="isAuthenticated()">
+		href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')"
+		</security:authorize>>
 		${news.contents.get(0).title} </a>
 	<fmt:formatDate type="both" dateStyle="long" timeStyle="long"
 		value="${news.dateTime}" />

@@ -20,7 +20,6 @@
 <fmt:message bundle="${loc}" key="local.enter.password"
 	var="enter_password" />
 <fmt:message bundle="${loc}" key="local.register" var="register" />
-<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 
 
@@ -63,22 +62,16 @@
 
 				<label class="form-label">${repeat_password}</label>
 				<div class="row p-1">
-					<input type="password" name="repeat_password" class="form-control"
+					<input type="password" name="repeatPassword" class="form-control"
 						placeholder="${repeat_password}">
 				</div>
 
 				<div class="row d-flex justify-content-center p-1">
 					<input type="button" class="btn btn-dark btn-outline-light"
 						value="${register}"
-						onclick="javascript: post('#reg', '#main', 'users/registration')">
+						onclick="javascript: post('#reg', '#error', 'users/registration')">
 				</div>
 			</form>
-
-			<div class="row d-flex justify-content-center p-1">
-				<a class="btn btn-dark btn-outline-light"
-					href="">${back}</a>
-			</div>
-
 		</div>
 	</div>
 </div>

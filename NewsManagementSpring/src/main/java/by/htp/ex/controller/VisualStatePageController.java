@@ -1,5 +1,6 @@
 package by.htp.ex.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class VisualStatePageController {
 	public String getIndexPage() {
 		return "basePage";
 	}
+
 
 	@GetMapping("/loginError")
 	public String getLogin(Model model) {

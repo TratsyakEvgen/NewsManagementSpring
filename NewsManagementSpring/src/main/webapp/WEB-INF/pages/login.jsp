@@ -10,7 +10,6 @@
 <fmt:message bundle="${loc}" key="local.enter.login" var="enter_login" />
 <fmt:message bundle="${loc}" key="local.enter.password"
 	var="enter_password" />
-<fmt:message bundle="${loc}" key="local.registration" var="registration" />
 <fmt:message bundle="${loc}" key="local.sign.in" var="sign_in" />
 
 
@@ -34,13 +33,9 @@
 				</div>
 				<div class="row d-flex justify-content-center p-1">
 					<input type="button" class="btn btn-dark btn-outline-light"
-						value="${sign_in}" onclick="javascript: login()">
+						value="${sign_in}" onclick="javascript: login('login')">
 				</div>
 			</form>
-			<div class="row d-flex justify-content-center p-1">
-				<a class="btn btn-dark btn-outline-light"
-					href="javascript: get('main', '#main', 'registration')">${registration}</a>
-			</div>
 		</div>
 	</div>
 </div>

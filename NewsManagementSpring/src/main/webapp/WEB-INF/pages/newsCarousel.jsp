@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.lastet.news" var="lastet_news" />
@@ -22,7 +24,9 @@
 				<div class="carousel-item active">
 					<p>
 						<a <c:set var="news" value="${listNews.get(0)}"/>
-							href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')">
+							<security:authorize access="isAuthenticated()">
+							href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')"
+							</security:authorize>>
 							<c:set var="images" value="${news.images}" /> <c:if
 								test="${images.isEmpty()}">
 								<img src="images/gray.png" class="d-block w-100"
@@ -44,7 +48,9 @@
 						<div class="carousel-item">
 							<p>
 								<a
-									href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')">
+									<security:authorize access="isAuthenticated()">
+									href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')"
+									</security:authorize>>
 									<c:set var="images" value="${news.images}" /> <c:if
 										test="${images.isEmpty()}">
 										<img src="images/gray.png" class="d-block w-100"

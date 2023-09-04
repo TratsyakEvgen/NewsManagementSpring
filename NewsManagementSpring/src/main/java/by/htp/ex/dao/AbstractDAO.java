@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,8 +25,8 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 	protected SessionFactory sessionFactory;
 
 	@Override
-	public E get(int id) {
-		return (E) getSession().get(clazz, id);
+	public Optional<E> get(int id) {
+		return Optional.ofNullable(getSession().get(clazz, id));
 	}
 
 	@Override
@@ -58,26 +58,37 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 	}
 
 	@Override
-	public List<E> findByFields(E entity) throws DaoException {
+	public List<E> getListByFields(E entity) throws DaoException {
 		try {
-			Session session = getSession();
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<E> critQuery = builder.createQuery(clazz);
-			Root<E> root = critQuery.from(clazz);
-
-			critQuery.select(root);
-			critQuery.where(builder.and(getPredicatesByFieldsValues(builder, root, entity)));
-			Query<E> query = session.createQuery(critQuery);		
-
-			return query.getResultList();
+			return getQuery(entity).getResultList();
 		} catch (Exception e) {
-			throw new DaoException("Can't find", e);
+			throw new DaoException("Can't find list entity", e);
 		}
 
 	}
 
+	@Override
+	public Optional<E> getByFields(E entity) throws DaoException {
+		try {
+			return Optional.ofNullable(getQuery(entity).getSingleResultOrNull());
+		} catch (Exception e) {
+			throw new DaoException("Can't find entity", e);
+		}
+	}
+
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	private Query<E> getQuery(E entity) {
+		Session session = getSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<E> critQuery = builder.createQuery(clazz);
+		Root<E> root = critQuery.from(clazz);
+
+		critQuery.select(root);
+		critQuery.where(builder.and(getPredicatesByFieldsValues(builder, root, entity)));
+		return session.createQuery(critQuery);
 	}
 
 	private <T> Predicate[] getPredicatesByFieldsValues(CriteriaBuilder builder, Root<E> root, T entity) {

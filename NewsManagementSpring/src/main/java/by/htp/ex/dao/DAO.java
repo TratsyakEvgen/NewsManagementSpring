@@ -1,10 +1,11 @@
 package by.htp.ex.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DAO<E>{
 	
-	public E get(int id);
+	public Optional<E> get(int id);
 	
 	public List<E> getAll() throws DaoException;
 	
@@ -14,7 +15,7 @@ public interface DAO<E>{
 	
 	public void update(E entity);
 	
-	public List<E> findByFields(E entity) throws DaoException;
+	public List<E> getListByFields(E entity) throws DaoException;
 	
-
+	public Optional<E> getByFields(E entity) throws DaoException;
 }

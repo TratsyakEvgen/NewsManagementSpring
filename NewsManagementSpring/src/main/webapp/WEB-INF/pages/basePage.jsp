@@ -91,17 +91,17 @@
 		});
 	}
 
-	function login() {
+	function login(action) {
 		$.ajax({
-			url : 'login',
+			url : action,
 			headers : {
 				'Accept-Language' : $.cookie("locale")
 			},
-			data : $("#login").serialize(),
+			data : $('#' + action).serialize(),
 			type : "POST",
 			statusCode : {
 				200 : function(data) {
-					$.cookie('main', $.cookie('mainBack'));
+					$.cookie('main', 'news/newsCarousel');
 					updateAll();
 				},
 				418 : function(data) {
@@ -123,6 +123,22 @@
 				200 : function(data) {
 					$(element).html(data);
 				},
+				418 : function(data) {
+					$("#error").html(data.responseText);
+				},
+			}
+		});
+	}
+	
+	function postNoUpdate(form, url) {
+		$.ajax({
+			url : url,
+			headers : {
+				'Accept-Language' : $.cookie("locale")
+			},
+			data : $(form).serialize(),
+			type : "POST",
+			statusCode : {
 				418 : function(data) {
 					$("#error").html(data.responseText);
 				},

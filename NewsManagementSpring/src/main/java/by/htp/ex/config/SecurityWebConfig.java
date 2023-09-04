@@ -19,7 +19,8 @@ public class SecurityWebConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable().and().authorizeHttpRequests().requestMatchers("/**").permitAll()
 				.requestMatchers("/files/**").hasRole("admin").and().formLogin().loginPage("/login")
-				.failureUrl("/loginError");
+				.defaultSuccessUrl("/news/newsCarousel").failureUrl("/loginError").and().logout()
+				.logoutSuccessUrl("/news/newsCarousel");
 		return http.build();
 	}
 
