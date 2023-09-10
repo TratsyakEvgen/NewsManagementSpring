@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,24 +20,25 @@ import by.htp.ex.service.ServiceException;
 @RequestMapping("/images")
 @SessionAttributes("errorCodes")
 public class ImageController {
-	
+
 	@Autowired
 	private ImageService imageService;
-	
+
 	@GetMapping("/get")
-	private String getAll(@CookieValue(name = "locale", defaultValue = "en") String locale, Model model) {
+	private String getAll(@RequestParam(required = false, defaultValue = "false") boolean select, Model model) {
 		try {
 			List<Image> images = imageService.getAllImages();
 			model.addAttribute("images", images);
+			model.addAttribute("select", select);
+			return "viewImages";
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
-		return "viewImages";
+
 	}
-	
-	
+
 	@PostMapping("/add")
-	private String add(@CookieValue(name = "locale", defaultValue = "en") String locale, Model model, @RequestParam("link") String link) {
+	private String add(Model model, @RequestParam String link) {
 		try {
 			imageService.add(link);
 		} catch (ServiceException e) {
@@ -46,20 +46,15 @@ public class ImageController {
 		}
 		return "redirect: get";
 	}
-	
+
 	@PostMapping("/update")
-	private String update(@CookieValue(name = "locale", defaultValue = "en") String locale, Model model, @ModelAttribute("image_{id}") Image image) {
-		try {			
+	private String update(Model model, @ModelAttribute Image image) {
+		try {
 			imageService.update(image);
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
 		return "redirect: get";
 	}
-	
-	
-	
-	
-	
 
 }

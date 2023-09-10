@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<fmt:setLocale value="${sessionScope.local}" />
+
 <fmt:setBundle basename="localization.local" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.update" var="update" />
@@ -14,9 +14,14 @@
 <fmt:message bundle="${loc}" key="local.update" var="update" />
 <fmt:message bundle="${loc}" key="local.save" var="save" />
 <fmt:message bundle="${loc}" key="local.add" var="add" />
+<fmt:message bundle="${loc}" key="local.select" var="select_loc" />
 
-
-
+<c:if test="${select}">
+	<c:set var="element" value="#select"></c:set>
+</c:if>
+<c:if test="${!select}">
+	<c:set var="element" value="#main"></c:set>
+</c:if>
 <div class="row">
 	<div class="col">
 		<button class="btn btn-dark btn-outline-light" type="button"
@@ -26,14 +31,13 @@
 		<div class="container">
 			<div class="row gy-2">
 				<div class="col-12">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <label class="form-label">${link}:</label>
-					<input type="text" name="link" class="form-control">
+					<label class="form-label">${link}:</label> <input type="text"
+						name="link" class="form-control">
 				</div>
 				<div class="col">
 					<input type="button" class="btn btn-dark btn-outline-light "
 						value="${save}"
-						onclick="javascript: post('#add', '#main', 'images/add')">
+						onclick="javascript: post('#add', '${element}', 'images/add')">
 				</div>
 			</div>
 		</div>
@@ -43,10 +47,10 @@
 
 <c:forEach var="image" items="${images}">
 	<div class="row">
-		<div class="col-6">
+		<div class="col">
 			<img src="${image.link}" class="img-fluid">
 		</div>
-		<div class="col-6 text-break">
+		<div class="col text-break">
 			<h5>${id}:${image.id}</h5>
 			<h5>${link}:${image.link}</h5>
 			<h5>${status}:
@@ -58,12 +62,11 @@
 				${update}</button>
 			<div class="collapse" id="${image.id}">
 				<form id="update_${image.id}">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <input type="hidden" name="id"
-						value="${image.id}"> <label class="form-label">${link}:</label>
-					<input type="text" name="link" class="form-control"
-						value="${image.link}"> <label class="form-label">${status}:</label>
-					<select class="form-select" name="status">
+					<input type="hidden" name="id" value="${image.id}"> <label
+						class="form-label">${link}:</label> <input type="text" name="link"
+						class="form-control" value="${image.link}"> <label
+						class="form-label">${status}:</label> <select class="form-select"
+						name="status">
 						<option value="true" <c:if test="${image.status}">selected</c:if>>
 							${active}</option>
 						<option value="false"
@@ -72,10 +75,17 @@
 					</select> <label class="form-label">${save}:</label> <input type="button"
 						class="btn btn-dark btn-outline-light form-control"
 						value="${save}"
-						onclick="javascript: post('#update_${image.id}', '#main', 'images/update')">
+						onclick="javascript: post('#update_${image.id}', '${element}', 'images/update')">
 				</form>
 			</div>
+			<c:if test="${select}">
+				<input type="button" class="btn btn-dark btn-outline-light"
+				onclick="javascript: $('#idImage').val(${image.id}); post('#addImage', '#main', 'news/addImage')"
+					value="${select_loc}">
+			</c:if>
+
 		</div>
+
 	</div>
 	<hr class="my-3">
 

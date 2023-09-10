@@ -15,11 +15,10 @@
 	var="registration_date" />
 <fmt:message bundle="${loc}" key="local.id" var="id" />
 <fmt:message bundle="${loc}" key="local.role" var="role" />
-<fmt:message bundle="${loc}" key="local.select" var="select" />
+<fmt:message bundle="${loc}" key="local.select" var="select_loc" />
 <fmt:message bundle="${loc}" key="local.user" var="user_local" />
 <fmt:message bundle="${loc}" key="local.admin" var="admin" />
 <fmt:message bundle="${loc}" key="local.deleted" var="deleted" />
-
 
 
 <div class="row table-responsive">
@@ -34,16 +33,14 @@
 				<th scope="col">${role}</th>
 				<th scope="col">${status}</th>
 
-				<c:if test="${selection}">
-					<th scope="col">${select}</th>
+				<c:if test="${select}">
+					<th scope="col">${select_loc}</th>
 				</c:if>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="user" items="${userList}" varStatus="loop">
 				<form id="${loop.index}"></form>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" form="${loop.index}" />
 				<input type="hidden" name="id" value="${user.id}"
 					form="${loop.index}" />
 
@@ -54,26 +51,32 @@
 					<td>${user.ditails.surname}</td>
 					<td>${user.ditails.email}</td>
 					<td><fmt:formatDate type="date" value="${user.ditails.date}" /></td>
-					<c:if test="${!selection}">
 
-						<td><select class="form-select" name="role"
-							onchange="javascript: postNoUpdate('#${loop.index}', 'users/userUpdateRoleOrStatus')"
-							form="${loop.index}">
-								<option value="user"
-									<c:if test="${user.role.role == 'user'}">selected</c:if>>${user_local}</option>
-								<option value="admin"
-									<c:if test="${user.role.role == 'admin'}">selected</c:if>>${admin}</option>
-						</select></td>
+					<td><select class="form-select" name="role"
+						onchange="javascript: postNoUpdate('#${loop.index}', 'users/updateRole')"
+						form="${loop.index}">
+							<option value="user"
+								<c:if test="${user.role.role == 'user'}">selected</c:if>>${user_local}</option>
+							<option value="admin"
+								<c:if test="${user.role.role == 'admin'}">selected</c:if>>${admin}</option>
+					</select></td>
 
-						<td><select class="form-select" name="status"
-							onchange="javascript: postNoUpdate('#${loop.index}', 'users/userUpdateRoleOrStatus')"
-							form="${loop.index}">
-								<option value="true" <c:if test="${user.status}">selected</c:if>>${active}</option>
-								<option value="false"
-									<c:if test="${!user.status}">selected</c:if>>${deleted}</option>
-						</select></td>
+					<td><select class="form-select" name="status"
+						onchange="javascript: postNoUpdate('#${loop.index}', 'users/updateStatus')"
+						form="${loop.index}">
+							<option value="true" <c:if test="${user.status}">selected</c:if>>${active}</option>
+							<option value="false"
+								<c:if test="${!user.status}">selected</c:if>>${deleted}</option>
+					</select></td>
 
+					<c:if test="${select}">
+						<td><input type="button"
+							class="btn btn-dark btn-outline-light"
+							onclick="javascript: $('#idUser').val(${user.id}); post('#addUser', '#main', 'news/addUser')"
+							value="${select_loc}"></td>
 					</c:if>
+
+
 				</tr>
 
 			</c:forEach>

@@ -22,15 +22,13 @@
 <fmt:message bundle="${loc}" key="local.register" var="register" />
 
 
-
 <div
 	class="container d-flex h-100 justify-content-center align-items-center">
 	<div class="row text-bg-dark rounded p-3">
 		<div class="col d-flex flex-column">
 
 			<form id="reg" name="regData">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <label class="form-label">${first_name}</label>
+				<label class="form-label">${first_name}</label>
 				<div class="row p-1">
 					<input type="text" name="name" class="form-control"
 						placeholder="${enter_first_name}">

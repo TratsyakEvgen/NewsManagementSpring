@@ -1,6 +1,7 @@
 package by.htp.ex.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,7 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,8 +37,8 @@ public class Role implements Serializable {
 	@Column(name = "role")
 	private String role;
 
-	@OneToOne(mappedBy = "role", fetch = FetchType.LAZY)
-	private User user;
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+	private List<User> users;
 
 	@Override
 	public int hashCode() {

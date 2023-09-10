@@ -23,19 +23,22 @@
 
 
 <div class="container-fluid">
+	<form id="logout">
+	</form>
 	<div class="mb-2 me-2">
 		<a class="navbar-brand" type="button" data-bs-toggle="dropdown">${news_management}</a>
 		<ul class="dropdown-menu">
 			<li><a class="dropdown-item"
-				href="javascript: get('menu', 'menu', 'news/newsline'); get('main', 'main', 'news/newsCarousel')">${main}</a></li>
+				href="javascript: get('menu', '#menu', 'news/newsline'); get('main', '#main', 'news/newsCarousel')">${main}</a></li>
 			<security:authorize access="isAuthenticated()">
 				<security:authorize access="hasRole('admin')">
 					<li><a class="dropdown-item"
 						href="javascript: get('menu', '#menu', 'menuControlPanel')">${control_panel}</a></li>
 				</security:authorize>
-				<li><a href="controller?command=go_to_account"
+				<li><a
+					href="javascript: get('menu', '#menu', 'menuAccount'); get('main', '#main', 'userDitails/account')"
 					class="dropdown-item">${profile}</a></li>
-				<li><a href="javascript: login('logout')"
+				<li><a href="javascript: login('#logout', '#main','logout')"
 					class="dropdown-item">${sign_out}</a></li>
 			</security:authorize>
 		</ul>
@@ -78,11 +81,7 @@
 
 		<security:authorize access="isAuthenticated()">
 			<div class="d-flex mb-2 me-2">
-				<form id="logout">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-				</form>
-				<a href="javascript: login('logout')"
+				<a href="javascript: login('#logout', '#main','logout')"
 					class="btn btn-dark btn-outline-light">${sign_out}</a>
 			</div>
 		</security:authorize>

@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -53,7 +54,7 @@ public class User implements Serializable{
 	@Column(name = "status")
 	private Boolean status;
 	
-	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			 CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", referencedColumnName = "id")
 	private Role role;

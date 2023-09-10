@@ -20,7 +20,7 @@
 <ul class="nav flex-column">
 
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'users/userList?select=false')">${users}</a>
+		href="javascript: get('main', '#main', 'users/userList')">${users}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
 		href="javascript: get('main', '#main', 'news/newsManagement')">${news_management}</a>

@@ -25,8 +25,12 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 	protected SessionFactory sessionFactory;
 
 	@Override
-	public Optional<E> get(int id) {
-		return Optional.ofNullable(getSession().get(clazz, id));
+	public Optional<E> get(int id) throws DaoException {
+		try {
+			return Optional.ofNullable(getSession().get(clazz, id));
+		} catch (Exception e) {
+			throw new DaoException("Can't get by id", e);
+		}
 	}
 
 	@Override

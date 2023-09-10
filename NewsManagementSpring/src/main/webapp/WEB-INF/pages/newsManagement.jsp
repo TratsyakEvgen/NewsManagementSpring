@@ -31,13 +31,12 @@
 
 <div class="row table-responsive">
 
-	<form action="controller" method="post">
-		<input type="hidden" name="command" value="do_create_news">
-		<div class="col">
-			<input type="submit" class="btn btn-dark btn-outline-light"
-				value="${add}">
-		</div>
-	</form>
+	<div class="col">
+		<input type="button" class="btn btn-dark btn-outline-light"
+			onclick="javascript: get('main', 'main', 'news/create')"
+			value="${add}">
+	</div>
+
 
 	<table class="table table-hover table-bordered">
 		<thead>
@@ -81,14 +80,11 @@
 					<td><c:if test="${news.status}">${active}</c:if> <c:if
 							test="${!news.status}">${deleted}</c:if></td>
 					<td>
-						<form action="controller" method="post">
-							<input type="hidden" name="command" value="go_to_update_news">
-							<input type="hidden" name="id" value="${news.id}">
-							<div class="col">
-								<input type="submit" class="btn btn-dark btn-outline-light"
-									value="${update}">
-							</div>
-						</form>
+						<div class="col">
+							<input type="button" class="btn btn-dark btn-outline-light"
+								onclick="javascript: get('main', '#main', 'news/update/${news.id}')"
+								value="${update}">
+						</div>
 					</td>
 				</tr>
 				<tr>

@@ -20,8 +20,7 @@
 		<div class="col d-flex flex-column">
 
 			<form id="login">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <label class="form-label">${login}</label>
+				<label class="form-label">${login}</label>
 				<div class="row p-1">
 					<input type="text" name="username" class="form-control"
 						placeholder="${enter_login}">
@@ -33,7 +32,8 @@
 				</div>
 				<div class="row d-flex justify-content-center p-1">
 					<input type="button" class="btn btn-dark btn-outline-light"
-						value="${sign_in}" onclick="javascript: login('login')">
+						value="${sign_in}"
+						onclick="javascript: login('#login', '#main','login')">
 				</div>
 			</form>
 		</div>

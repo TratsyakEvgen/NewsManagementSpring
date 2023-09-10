@@ -13,6 +13,7 @@ import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.RoleDAO;
 import by.htp.ex.dao.UserDAO;
 import by.htp.ex.model.bean.RegistrationData;
+import by.htp.ex.model.bean.UpdatePasswordData;
 import by.htp.ex.model.entity.Role;
 import by.htp.ex.model.entity.User;
 import by.htp.ex.model.entity.UserDitails;
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public List<User> getUserList() throws ServiceException {
 		try {
-			return userDAO.getUsersFetchall();
+			return userDAO.getSecretUsersFetchAll();
 		} catch (DaoException e) {
 			throw new ServiceException("Can't get user list", e);
 		}
@@ -80,19 +81,65 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void updateRoleOrStatus(int id, String roleName, boolean status) throws ServiceException {
-		User user = userDAO.get(id).orElseThrow(() -> new ServiceException(ErrorCode.USER_NOT_FOUND));
-		Role role = Role.builder().role(roleName).build();		
+	public void updateRole(int id, String roleName) throws ServiceException {
 		try {
+			Role role = Role.builder().role(roleName).build();
 			role = roleDAO.getByFields(role).orElseThrow(() -> new ServiceException(ErrorCode.ROLE_NOT_FOUND));
-			user.setRole(role);
-			user.setStatus(status);
+			int count = userDAO.updateRole(id, role);
+			if (count == 0) {
+				throw new ServiceException(ErrorCode.USER_NOT_FOUND);
+			}
 		} catch (DaoException e) {
-			throw new ServiceException("Can't update role or status", e);
+			throw new ServiceException("Can't update role", e);
 		}
-		
-		
-		
+
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(int id, boolean status) throws ServiceException {
+		try {
+			int count = userDAO.updateStatus(id, status);
+			if (count == 0) {
+				throw new ServiceException(ErrorCode.USER_NOT_FOUND);
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Can't update status", e);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void updatePassword(String username, UpdatePasswordData data) throws ServiceException {
+		try {
+			Optional<List<ErrorCode>> codes = validator.check(data);
+			if (codes.isPresent()) {
+				throw new ServiceException(codes.get());
+			}
+			int count = userDAO.updatePassword(username, encoder.encode(data.getPassword()));
+			if (count == 0) {
+				throw new ServiceException(ErrorCode.USER_NOT_FOUND);
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Can't update password", e);
+		} catch (ValidationException e) {
+			throw new ServiceException("Error validation " + data.getClass().getName(), e);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void delete(String username) throws ServiceException {
+		try {
+			int count = userDAO.updateStatus(username, false);
+			if (count == 0) {
+				throw new ServiceException(ErrorCode.USER_NOT_FOUND);
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Can't update status by username", e);
+		}
 	}
 
 }

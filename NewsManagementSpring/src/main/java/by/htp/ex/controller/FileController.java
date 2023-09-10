@@ -30,7 +30,7 @@ public class FileController {
 	private FileSystemService fileSystemService;
 
 	@GetMapping("/get")
-	public String getFiles(Model model, @RequestParam("dir") String dir) {
+	public String getFiles(Model model, @RequestParam String dir) {
 		try {
 			String realPart = context.getRealPath("");
 			String directory = DirectoryName.valueOf(dir.toUpperCase()).getDir();
@@ -47,7 +47,7 @@ public class FileController {
 	}
 
 	@PostMapping(path = "/upload")
-	public String upload(Model model, @RequestParam("dir") String dir, @RequestParam("file") Part file) {
+	public String upload(Model model, @RequestParam String dir, @RequestParam Part file) {
 		try {
 			String directory = DirectoryName.valueOf(dir.toUpperCase()).getDir();
 			String dirPath = context.getRealPath(directory);
@@ -62,7 +62,7 @@ public class FileController {
 	
 	
 	@PostMapping(path = "/delete")
-	public String delete(Model model, @RequestParam("dir") String dir, @RequestParam("link") String link) {
+	public String delete(Model model, @RequestParam String dir, @RequestParam String link) {
 		try {
 			String realPart = context.getRealPath(link);
 			fileSystemService.delete(realPart);
@@ -75,7 +75,7 @@ public class FileController {
 	}
 	
 	@PostMapping(path = "/update")
-	public String update(Model model, @RequestParam("dir") String dir, @RequestParam("link") String link, @RequestParam("file") Part file) {
+	public String update(Model model, @RequestParam String dir, @RequestParam String link, @RequestParam Part file) {
 		try {
 			String realPart = context.getRealPath(link);
 			fileSystemService.update(realPart, file);

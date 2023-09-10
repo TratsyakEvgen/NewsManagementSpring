@@ -72,7 +72,8 @@
 		$.ajax({
 			type : "POST",
 			headers : {
-				'Accept-Language' : $.cookie("locale")
+				'Accept-Language' : $.cookie("locale"),
+				'X-CSRF-TOKEN' : $("#csrf").val()
 			},
 			enctype : 'multipart/form-data',
 			url : url,
@@ -91,18 +92,23 @@
 		});
 	}
 
-	function login(action) {
+	function login(form, element, url) {
 		$.ajax({
-			url : action,
+			url : url,
 			headers : {
-				'Accept-Language' : $.cookie("locale")
+				'Accept-Language' : $.cookie("locale"),
+				'X-CSRF-TOKEN' : $("#csrf").val(),
 			},
-			data : $('#' + action).serialize(),
+			data : $(form).serialize(),
 			type : "POST",
 			statusCode : {
 				200 : function(data) {
-					$.cookie('main', 'news/newsCarousel');
-					updateAll();
+					$(element).html(data);
+					if (element != '#main') {
+						get('main', '#main', 'news/newsCarousel');
+					}
+					get('menu', '#menu', 'news/newsline');
+					get('header', '#header', 'header');
 				},
 				418 : function(data) {
 					$("#error").html(data.responseText);
@@ -115,7 +121,8 @@
 		$.ajax({
 			url : url,
 			headers : {
-				'Accept-Language' : $.cookie("locale")
+				'Accept-Language' : $.cookie("locale"),
+				'X-CSRF-TOKEN' : $("#csrf").val()
 			},
 			data : $(form).serialize(),
 			type : "POST",
@@ -129,12 +136,13 @@
 			}
 		});
 	}
-	
+
 	function postNoUpdate(form, url) {
 		$.ajax({
 			url : url,
 			headers : {
-				'Accept-Language' : $.cookie("locale")
+				'Accept-Language' : $.cookie("locale"),
+				'X-CSRF-TOKEN' : $("#csrf").val(),
 			},
 			data : $(form).serialize(),
 			type : "POST",
@@ -161,13 +169,14 @@
 
 
 <body class="d-flex flex-column h-100">
+
+	<input type="hidden" id="csrf" value="${_csrf.token}" />
+
 	<header class="navbar bg-dark sticky-top navbar-expand-lg"
-		data-bs-theme="dark" id="header">
-		
-	</header>
+		data-bs-theme="dark" id="header"> </header>
 
 	<div class="toast-container position-fixed top-0 end-0 p-5" id="error">
-		
+
 	</div>
 
 
@@ -183,16 +192,29 @@
 							data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu"></button>
 					</div>
 					<div class="offcanvas-body d-md-flex flex-column p-1 pt-lg-3"
-						id="menu">
-						
-					</div>
+						id="menu"></div>
 				</div>
 			</div>
 
 			<main class="col-md-8 ms-sm-auto col-lg-9 px-md-4">
-				<div class="container h-100" id="main">
-				</div>
+				<div class="container" id="main"></div>
 			</main>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" id="select"></div>
+			</div>
 		</div>
 	</div>
 

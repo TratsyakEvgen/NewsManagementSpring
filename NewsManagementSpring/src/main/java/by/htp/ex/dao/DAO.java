@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface DAO<E>{
 	
-	public Optional<E> get(int id);
+	public Optional<E> get(int id) throws DaoException;
 	
 	public List<E> getAll() throws DaoException;
 	
