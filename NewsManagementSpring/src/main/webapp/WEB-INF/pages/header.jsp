@@ -22,26 +22,25 @@
 <fmt:message bundle="${loc}" key="local.registration" var="registration" />
 
 <script>
-   $("#csrf").val("${_csrf.token}");
+	$("#csrf").val("${_csrf.token}");
 </script>
 
 <div class="container-fluid">
-	<form id="logout">
-	</form>
+	<form id="logout"></form>
 	<div class="mb-2 me-2">
 		<a class="navbar-brand" type="button" data-bs-toggle="dropdown">${news_management}</a>
 		<ul class="dropdown-menu">
 			<li><a class="dropdown-item"
-				href="javascript: get('menu', '#menu', 'news/newsline'); get('main', '#main', 'news/newsCarousel')">${main}</a></li>
+				href="javascript: get('#menu', 'news/newsline', setCookie('menu','news/newsline')); get('#main', 'news/newsCarousel', setCookie('main','news/newsCarousel'))">${main}</a></li>
 			<security:authorize access="isAuthenticated()">
 				<security:authorize access="hasRole('admin')">
 					<li><a class="dropdown-item"
-						href="javascript: get('menu', '#menu', 'menuControlPanel')">${control_panel}</a></li>
+						href="javascript: get('#menu', 'menuControlPanel', setCookie('menu','menuControlPanel'))">${control_panel}</a></li>
 				</security:authorize>
 				<li><a
-					href="javascript: get('menu', '#menu', 'menuAccount'); get('main', '#main', 'userDitails/auth/account')"
+					href="javascript: get('#menu', 'menuAccount', setCookie('menu','menuAccount')); get('#main', 'userDitails/auth/account', setCookie('main','userDitails/auth/account'))"
 					class="dropdown-item">${profile}</a></li>
-				<li><a href="javascript: login('#logout', '#main','logout')"
+				<li><a href="javascript: post('#logout', '#main','logout', login)"
 					class="dropdown-item">${sign_out}</a></li>
 			</security:authorize>
 		</ul>
@@ -73,18 +72,18 @@
 
 
 		<security:authorize access="isAnonymous()">
-			<a href="javascript: get('main', '#main', 'login')"
+			<a href="javascript: get('#main', 'login', setCookie('main','login'))"
 				class="btn btn-dark btn-outline-light mb-2 me-2">${sign_in}</a>
 		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
-			<a href="javascript: get('main', '#main', 'registration')"
+			<a href="javascript: get('#main', 'registration', setCookie('main','registration'))"
 				class="btn btn-dark btn-outline-light mb-2 me-2">${registration}</a>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
 			<div class="d-flex mb-2 me-2">
-				<a href="javascript: login('#logout', '#main','logout')"
+				<a href="javascript: post('#logout', '#main','logout', login)"
 					class="btn btn-dark btn-outline-light">${sign_out}</a>
 			</div>
 		</security:authorize>

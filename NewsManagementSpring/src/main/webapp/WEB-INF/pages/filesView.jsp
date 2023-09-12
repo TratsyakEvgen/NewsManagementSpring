@@ -2,17 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<fmt:setLocale value="${sessionScope.local}" />
+
+
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.upload" var="upload" />
 <fmt:message bundle="${loc}" key="local.update" var="update" />
 <fmt:message bundle="${loc}" key="local.delete" var="delete" />
 <fmt:message bundle="${loc}" key="local.file" var="file" />
+<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 <script>
    $("#csrf").val("${_csrf.token}");
 </script>
-
+<div class="d-flex flex-row  mb-3">
+	<a
+		href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
+		class="btn btn-dark btn-outline-light">${back}</a>
+</div>
 
 <div class="row">
 	<div class="col">

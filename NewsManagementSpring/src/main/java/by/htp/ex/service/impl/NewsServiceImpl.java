@@ -63,7 +63,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public News getNewsByIdandLocaleContent(int idNews, String locale) throws ServiceException {
+	public News getNews(int idNews, String locale) throws ServiceException {
 		try {
 			return newsDAO.getNewsByIdAndLocaleContentFetchAll(idNews, locale)
 					.orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));

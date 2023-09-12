@@ -22,20 +22,20 @@
 <ul class="nav flex-column">
 
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'users/admin/userList')">${users}</a>
+		href="javascript: get('#main', 'users/admin/userList', setCookie('main','users/admin/userList'))">${users}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'news/admin/newsManagement')">${news_management}</a>
+		href="javascript: get('#main', 'news/admin/newsManagement', setCookie('main','news/admin/newsManagement'))">${news_management}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'images/admin/get')">${gallery}</a>
+		href="javascript: get('#main', 'images/admin/get', setCookie('main','images/admin/get'))">${gallery}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'files/admin/get?dir=images')">${file_system_images}</a>
+		href="javascript: get('#main', 'files/admin/get?dir=images', setCookie('main','files/admin/get?dir=images'))">${file_system_images}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
-		href="javascript: get('main', '#main', 'files/admin/get?dir=html')">${file_system_documents}</a>
+		href="javascript: get('#main', 'files/admin/get?dir=html', setCookie('main','files/admin/get?dir=html'))">${file_system_documents}</a>
 		<hr class="my-3"></li>
 	<li><a class="text-decoration-none text-reset"
-		href="controller?command=go_to_base_page">${back}</a></li>
+		href="javascript: get('#menu', $.cookie('menuBack'), setCookie('menu',$.cookie('menuBack')))">${back}</a></li>
 </ul>

@@ -33,11 +33,12 @@
 
 
 <script>
-   $("#csrf").val("${_csrf.token}");
+	$("#csrf").val("${_csrf.token}");
 </script>
 
 <div class="d-flex flex-row  mb-3">
-	<a href="controller?command=go_to_news_management"
+	<a
+		href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
 		class="btn btn-dark btn-outline-light">${back}</a>
 </div>
 <div class="row table-responsive">

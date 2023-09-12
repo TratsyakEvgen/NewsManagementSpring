@@ -32,5 +32,5 @@
 	<li><a class="text-decoration-none text-reset"
 		data-bs-toggle="collapse" role="button" data-bs-target="#delete">${delete}</a>
 		<hr class="my-3"></li>
-	<li><a class="text-decoration-none text-reset" href="controller?command=go_to_base_page">${back}</a>
+	<li><a class="text-decoration-none text-reset" href="javascript: get('#menu', $.cookie('menuBack'), setCookie('menu',$.cookie('menuBack')))">${back}</a>
 </ul>

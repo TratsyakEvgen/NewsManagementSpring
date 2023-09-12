@@ -23,10 +23,17 @@
 	var="registration_date" />
 <fmt:message bundle="${loc}" key="local.update" var="update" />
 <fmt:message bundle="${loc}" key="local.delete" var="delete" />
+<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 <script>
    $("#csrf").val("${_csrf.token}");
 </script>
+
+<div class="d-flex flex-row  mb-3">
+	<a
+		href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
+		class="btn btn-dark btn-outline-light">${back}</a>
+</div>
 
 <div class="row" id="accordion">
 	<div class="collapse collapse-horizontal show" id="info"

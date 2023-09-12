@@ -15,6 +15,7 @@
 <fmt:message bundle="${loc}" key="local.save" var="save" />
 <fmt:message bundle="${loc}" key="local.add" var="add" />
 <fmt:message bundle="${loc}" key="local.select" var="select_loc" />
+<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 
 <script>
@@ -29,8 +30,14 @@
 </c:if>
 <div class="row">
 	<div class="col">
-		<button class="btn btn-dark btn-outline-light" type="button"
+		<div class="d-flex flex-row  mb-3">
+			<a
+				href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
+				class="btn btn-dark btn-outline-light">${back}</a>
+				<button class="btn btn-dark btn-outline-light" type="button"
 			data-bs-toggle="collapse" data-bs-target="#add">${add}</button>
+		</div>
+		
 	</div>
 	<form class="collapse" id="add">
 		<div class="container">
@@ -85,7 +92,7 @@
 			</div>
 			<c:if test="${select}">
 				<input type="button" class="btn btn-dark btn-outline-light"
-				onclick="javascript: $('#idImage').val(${image.id}); post('#addImage', '#main', 'news/admin/addImage')"
+					onclick="javascript: $('#idImage').val(${image.id}); post('#addImage', '#main', 'news/admin/addImage')"
 					value="${select_loc}">
 			</c:if>
 

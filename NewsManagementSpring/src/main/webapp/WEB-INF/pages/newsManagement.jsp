@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<fmt:setLocale value="${sessionScope.local}" />
+
+
 <fmt:setBundle basename="localization.local" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.id" var="id" />
@@ -27,19 +28,26 @@
 <fmt:message bundle="${loc}" key="local.admin" var="admin" />
 <fmt:message bundle="${loc}" key="local.add" var="add" />
 <fmt:message bundle="${loc}" key="local.update" var="update" />
+<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 
 <script>
-   $("#csrf").val("${_csrf.token}");
+	$("#csrf").val("${_csrf.token}");
 </script>
+<div class="d-flex flex-row  mb-3">
+	<a
+		href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
+		class="btn btn-dark btn-outline-light">${back}</a>
+	<div class="col">
+		<input type="button" class="btn btn-dark btn-outline-light"
+			onclick="javascript: get('main', 'news/admin/create', setCookie('main','news/admin/create'))"
+			value="${add}">
+	</div>
+</div>
 
 <div class="row table-responsive">
 
-	<div class="col">
-		<input type="button" class="btn btn-dark btn-outline-light"
-			onclick="javascript: get('main', 'main', 'news/admin/create')"
-			value="${add}">
-	</div>
+
 
 
 	<table class="table table-hover table-bordered">
@@ -86,7 +94,7 @@
 					<td>
 						<div class="col">
 							<input type="button" class="btn btn-dark btn-outline-light"
-								onclick="javascript: get('main', '#main', 'news/admin/update/${news.id}')"
+								onclick="javascript: get('#main', 'news/admin/update/${news.id}', setCookie('main','news/admin/update/${news.id}'))"
 								value="${update}">
 						</div>
 					</td>
@@ -108,7 +116,7 @@
 										<th scope="row">${content.id}</th>
 										<td>${content.locale.locale}</td>
 										<td><a
-											href="controller?command=go_to_view_news_as_admin&id=${content.id}">
+											href="javascript: get('#main', 'news/auth/newsView?id=${news.id}', setCookie('main','news/auth/newsView?id=${news.id}'))">
 												${content.title}</a></td>
 										<td><a href="${content.link}">${content.link}</a></td>
 									</tr>

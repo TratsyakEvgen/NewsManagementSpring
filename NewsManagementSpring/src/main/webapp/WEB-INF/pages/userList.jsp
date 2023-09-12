@@ -19,11 +19,16 @@
 <fmt:message bundle="${loc}" key="local.user" var="user_local" />
 <fmt:message bundle="${loc}" key="local.admin" var="admin" />
 <fmt:message bundle="${loc}" key="local.deleted" var="deleted" />
+<fmt:message bundle="${loc}" key="local.back" var="back" />
 
 <script>
    $("#csrf").val("${_csrf.token}");
 </script>
-
+<div class="d-flex flex-row  mb-3">
+	<a
+		href="javascript: get('#main', $.cookie('mainBack'), setCookie('main',$.cookie('mainBack')))"
+		class="btn btn-dark btn-outline-light">${back}</a>
+</div>
 <div class="row table-responsive">
 	<table class="table table-hover">
 		<thead>

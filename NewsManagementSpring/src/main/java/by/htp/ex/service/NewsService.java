@@ -12,7 +12,7 @@ public interface NewsService {
 
 	public List<News> getNewsCarousel(String locale) throws ServiceException;
 
-	public News getNewsByIdandLocaleContent(int idNews, String locale) throws ServiceException;
+	public News getNews(int idNews, String locale) throws ServiceException;
 
 	public int create(String username) throws ServiceException;
 

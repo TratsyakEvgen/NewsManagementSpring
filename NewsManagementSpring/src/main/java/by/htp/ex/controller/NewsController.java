@@ -65,7 +65,7 @@ public class NewsController {
 	public String getNews(@CookieValue(name = "locale", defaultValue = "en") String locale, Model model,
 			@RequestParam("id") int id) {
 		try {
-			News news = newsService.getNewsByIdandLocaleContent(id, locale);
+			News news = newsService.getNews(id, locale);
 			model.addAttribute("news", news);
 			return "newsView";
 		} catch (ServiceException e) {

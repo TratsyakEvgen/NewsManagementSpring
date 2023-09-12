@@ -35,7 +35,7 @@
 				<div class="row d-flex justify-content-center p-1">
 					<input type="button" class="btn btn-dark btn-outline-light"
 						value="${sign_in}"
-						onclick="javascript: login('#login', '#main','login')">
+						onclick="javascript: post('#login', '#main','login', login)">
 				</div>
 			</form>
 		</div>

@@ -11,7 +11,7 @@
 
 
 <script>
-   $("#csrf").val("${_csrf.token}");
+	$("#csrf").val("${_csrf.token}");
 </script>
 
 <div class="row text-center">
@@ -25,52 +25,26 @@
 		<div id="carousel" class="carousel slide carousel-fade"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<p>
-						<a <c:set var="news" value="${listNews.get(0)}"/>
-							<security:authorize access="isAuthenticated()">
-							href="javascript: get('main', '#main', 'news/auth/newsView?id=${news.id}')"
-							</security:authorize>>
-							<c:set var="images" value="${news.images}" /> <c:if
-								test="${images.isEmpty()}">
-								<img src="images/gray.png" class="d-block w-100"
-									style="height: 500px;">
-							</c:if> <c:if test="${!images.isEmpty()}">
-								<img src="${images.get(0).link}" class="d-block w-100"
-									style="height: 500px;">
-							</c:if>
-						</a>
-					</p>
-					<div class="carousel-caption d-noned md-block ">
-						<h1>${news.contents.get(0).title}</h1>
-					</div>
 
-				</div>
-
-				<c:if test="${listNews.size() > 0}">
-					<c:forEach var="news" items="${listNews}" begin="1">
-						<div class="carousel-item">
-							<p>
-								<a
-									<security:authorize access="isAuthenticated()">
-									href="javascript: get('main', '#main', 'news/auth/newsView?id=${news.id}')"
+				<c:forEach var="news" items="${listNews}" varStatus="loop">
+					<div
+						class="carousel-item
+						<c:if test="${loop.index == 0}">active</c:if>">
+						<p>
+							<a
+								<security:authorize access="isAuthenticated()">
+									href="javascript: get('#main', 'news/auth/newsView?id=${news.id}', setCookie('main','news/auth/newsView?id=${news.id}'))"
 									</security:authorize>>
-									<c:set var="images" value="${news.images}" /> <c:if
-										test="${images.isEmpty()}">
-										<img src="images/gray.png" class="d-block w-100"
-											style="height: 500px;">
-									</c:if> <c:if test="${!images.isEmpty()}">
-										<img src="${images.get(0).link}" class="d-block w-100"
-											style="sheight: 500px;">
-									</c:if>
-								</a>
-							</p>
-							<div class="carousel-caption d-noned md-block ">
-								<h1>${news.contents.get(0).title}</h1>
-							</div>
+								<c:set var="images" value="${news.images}" /> <img
+								src="${images.get(0).link}" class="d-block w-100"
+								style="sheight: 500px;">
+							</a>
+						</p>
+						<div class="carousel-caption d-noned md-block ">
+							<h1>${news.contents.get(0).title}</h1>
 						</div>
-					</c:forEach>
-				</c:if>
+					</div>
+				</c:forEach>
 			</div>
 
 			<button class="carousel-control-prev" type="button"
