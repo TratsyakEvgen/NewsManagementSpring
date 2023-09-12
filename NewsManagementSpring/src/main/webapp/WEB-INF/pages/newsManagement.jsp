@@ -29,11 +29,15 @@
 <fmt:message bundle="${loc}" key="local.update" var="update" />
 
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 <div class="row table-responsive">
 
 	<div class="col">
 		<input type="button" class="btn btn-dark btn-outline-light"
-			onclick="javascript: get('main', 'main', 'news/create')"
+			onclick="javascript: get('main', 'main', 'news/admin/create')"
 			value="${add}">
 	</div>
 
@@ -82,7 +86,7 @@
 					<td>
 						<div class="col">
 							<input type="button" class="btn btn-dark btn-outline-light"
-								onclick="javascript: get('main', '#main', 'news/update/${news.id}')"
+								onclick="javascript: get('main', '#main', 'news/admin/update/${news.id}')"
 								value="${update}">
 						</div>
 					</td>

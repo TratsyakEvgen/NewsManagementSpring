@@ -10,6 +10,10 @@
 <fmt:message bundle="${loc}" key="local.lastet.news" var="lastet_news" />
 
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 <div class="row text-center">
 	<h1>${lastet_news}</h1>
 </div>
@@ -25,7 +29,7 @@
 					<p>
 						<a <c:set var="news" value="${listNews.get(0)}"/>
 							<security:authorize access="isAuthenticated()">
-							href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')"
+							href="javascript: get('main', '#main', 'news/auth/newsView?id=${news.id}')"
 							</security:authorize>>
 							<c:set var="images" value="${news.images}" /> <c:if
 								test="${images.isEmpty()}">
@@ -49,7 +53,7 @@
 							<p>
 								<a
 									<security:authorize access="isAuthenticated()">
-									href="javascript: get('main', '#main', 'news/newsView?id=${news.id}')"
+									href="javascript: get('main', '#main', 'news/auth/newsView?id=${news.id}')"
 									</security:authorize>>
 									<c:set var="images" value="${news.images}" /> <c:if
 										test="${images.isEmpty()}">

@@ -29,7 +29,7 @@ public class VisualStatePageController {
 	}
 
 	@GetMapping("/{path}")
-	public String getElement(@PathVariable String path) {
+	public String getElement(@PathVariable("path") String path) {
 		return path;
 	}
 

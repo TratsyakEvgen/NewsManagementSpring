@@ -13,6 +13,7 @@ import by.htp.ex.util.ErrorCode;
 import by.htp.ex.util.validation.AnnatationHandler;
 import by.htp.ex.util.validation.Validator;
 import by.htp.ex.util.validation.annatation.Equal;
+import by.htp.ex.util.validation.annatation.NotNull;
 import by.htp.ex.util.validation.annatation.RegEx;
 import jakarta.xml.bind.ValidationException;
 
@@ -24,6 +25,7 @@ public class ValidatorImpl implements Validator {
 	public ValidatorImpl() {
 		rules.put(RegEx.class, new RegExHandler());
 		rules.put(Equal.class, new EqualHandler());
+		rules.put(NotNull.class, new NotNullHandler());
 	}
 
 	@Override

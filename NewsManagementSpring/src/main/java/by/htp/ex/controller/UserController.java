@@ -42,8 +42,8 @@ public class UserController {
 		return "redirect: done";
 	}
 
-	@GetMapping("/userList")
-	public String getUserlist(Model model, @RequestParam(required = false, defaultValue = "false") boolean select) {
+	@GetMapping("/admin/userList")
+	public String getUserlist(Model model, @RequestParam(value = "select", required = false, defaultValue = "false") boolean select) {
 		try {
 			model.addAttribute("userList", service.getUserList());
 			model.addAttribute("select", select);
@@ -53,8 +53,8 @@ public class UserController {
 		return "userList";
 	}
 
-	@PostMapping("/updateRole")
-	public void updateRole(Model model, @RequestParam int id, @RequestParam String role,
+	@PostMapping("/admin/updateRole")
+	public void updateRole(Model model, @RequestParam("id") int id, @RequestParam("role") String role,
 			HttpServletResponse response) throws IOException {
 		try {
 			service.updateRole(id, role);
@@ -64,8 +64,8 @@ public class UserController {
 		response.setStatus(200);
 	}
 
-	@PostMapping("/updateStatus")
-	public void updateStatus(Model model, @RequestParam int id, @RequestParam boolean status,
+	@PostMapping("/admin/updateStatus")
+	public void updateStatus(Model model, @RequestParam("id") int id, @RequestParam("status") boolean status,
 			HttpServletResponse response) throws IOException {
 		try {
 			service.updateStatus(id, status);
@@ -75,7 +75,7 @@ public class UserController {
 		response.setStatus(200);
 	}
 
-	@PostMapping("/updatePassword")
+	@PostMapping("/auth/updatePassword")
 	public String updatePassword(Model model, @ModelAttribute UpdatePasswordData data, Principal principal,
 			HttpServletRequest request) {
 		try {
@@ -87,7 +87,7 @@ public class UserController {
 		return "redirect: /NewsManagementSpring/done";
 	}
 
-	@PostMapping("/delete")
+	@PostMapping("/auth/delete")
 	public String delete(Model model, Principal principal, HttpServletRequest request) {
 		try {
 			service.delete(principal.getName());

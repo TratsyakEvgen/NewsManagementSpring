@@ -18,11 +18,15 @@ public enum ErrorCode {
 	EMAIL_VALIDATION("local.email.validation"),
 	LINK_VALIDATION("local.link.validation"),
 	NAME_VALIDATION("local.name.validation"),
+	DATA_VALIDATION("local.data.validation"),
 	SURNAME_VALIDATION("local.surname.validation"),
 	LOGIN_ALREADY_EXIST("local.login.already.exist"),
 	MATH_PASSWORDS_VALIDATION("local.math.passwords.validation"),
 	USER_NOT_FOUND("local.user.not.found"),
 	ROLE_NOT_FOUND("local.role.not.found"),
+	LOCALE_NOT_FOUND("local.locale.not.found"),
+	LOCALE_ALREADY_EXIST("local.local.already.exist"),
+	CONTENT_NOT_FOUND("local.content.not.found"),	
 	USER_DELETED("local.user.deleted");
 
 	private String title;

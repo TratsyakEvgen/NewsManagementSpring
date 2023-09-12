@@ -37,7 +37,7 @@ public class UserDitailsServiceImpl implements UserDitailsService {
 
 	@Override
 	@Transactional
-	public UserDitails update(String username, UserDitailsData data) throws ServiceException {
+	public void update(String username, UserDitailsData data) throws ServiceException {
 
 		try {
 			Optional<List<ErrorCode>> codes = validator.check(data);
@@ -50,8 +50,6 @@ public class UserDitailsServiceImpl implements UserDitailsService {
 			ditails.setName(data.getName());
 			ditails.setSurname(data.getSurname());
 			ditails.setEmail(data.getEmail());
-			return ditails;
-
 		} catch (ValidationException e) {
 			throw new ServiceException("Error validation " + data.getClass().getName(), e);
 		} catch (DaoException e) {

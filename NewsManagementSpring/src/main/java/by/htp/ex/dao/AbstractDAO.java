@@ -52,13 +52,21 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 	}
 
 	@Override
-	public void delete(E entity) {
-		getSession().remove(entity);
+	public void delete(E entity) throws DaoException {
+		try {
+			getSession().remove(entity);
+		} catch (Exception e) {
+			throw new DaoException("Can't delete", e);
+		}
 	}
 
 	@Override
-	public void update(E entity) {
-		getSession().merge(entity);
+	public void update(E entity) throws DaoException {
+		try {
+			getSession().merge(entity);
+		} catch (Exception e) {
+			throw new DaoException("Can't update", e);
+		}
 	}
 
 	@Override

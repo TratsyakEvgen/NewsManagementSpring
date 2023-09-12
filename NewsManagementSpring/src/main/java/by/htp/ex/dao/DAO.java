@@ -11,9 +11,9 @@ public interface DAO<E>{
 	
 	public void create(E entity) throws DaoException;
 	
-	public void delete(E entity);
+	public void delete(E entity) throws DaoException;
 	
-	public void update(E entity);
+	public void update(E entity) throws DaoException;
 	
 	public List<E> getListByFields(E entity) throws DaoException;
 	

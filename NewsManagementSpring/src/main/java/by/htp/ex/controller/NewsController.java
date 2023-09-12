@@ -50,7 +50,7 @@ public class NewsController {
 		}
 	}
 
-	@GetMapping("/newsManagement")
+	@GetMapping("/admin/newsManagement")
 	public String getAllNews(Model model) {
 		try {
 			List<News> news = newsService.getAll();
@@ -61,7 +61,7 @@ public class NewsController {
 		}
 	}
 
-	@GetMapping("/newsView")
+	@GetMapping("/auth/newsView")
 	public String getNews(@CookieValue(name = "locale", defaultValue = "en") String locale, Model model,
 			@RequestParam("id") int id) {
 		try {
@@ -74,19 +74,18 @@ public class NewsController {
 
 	}
 
-	@GetMapping("/create")
+	@GetMapping("/admin/create")
 	public String create(Model model, Principal principal) {
 		try {
-			News news = newsService.create(principal.getName());
-			model.addAttribute("news", news);
-			return "redirect: update/" + news.getId();
+			int id = newsService.create(principal.getName());
+			return "redirect: update/" + id;
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
 	}
 
-	@GetMapping("/update/{id}")
-	public String update(Model model, @PathVariable int id) {
+	@GetMapping("/admin/update/{id}")
+	public String update(Model model, @PathVariable("id") int id) {
 		try {
 			model.addAttribute("news", newsService.get(id));
 			return "updateNews";
@@ -95,12 +94,11 @@ public class NewsController {
 		}
 	}
 
-	@PostMapping("/addImage")
+	@PostMapping("/admin/addImage")
 	public String addImage(Model model, @RequestParam int idNews, @RequestParam int idImage) {
 		try {
-			News news = newsService.addImage(idNews, idImage);
-			model.addAttribute("news", news);
-			return "redirect: update/" + news.getId();
+			newsService.addImage(idNews, idImage);
+			return "redirect: update/" + idNews;
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
@@ -109,9 +107,8 @@ public class NewsController {
 	@PostMapping("/deleteImage")
 	public String deleteImage(Model model, @RequestParam int idNews, @RequestParam int idImage) {
 		try {
-			News news = newsService.deleteImage(idNews, idImage);
-			model.addAttribute("news", news);
-			return "redirect: update/" + news.getId();
+			newsService.deleteImage(idNews, idImage);
+			return "redirect: update/" + idNews;
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
@@ -120,9 +117,8 @@ public class NewsController {
 	@PostMapping("/addUser")
 	public String addUser(Model model, @RequestParam int idNews, @RequestParam int idUser) {
 		try {
-			News news = newsService.addUser(idNews, idUser);
-			model.addAttribute("news", news);
-			return "redirect: update/" + news.getId();
+			newsService.addUser(idNews, idUser);
+			return "redirect: update/" + idNews;
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}

@@ -24,6 +24,9 @@
 <fmt:message bundle="${loc}" key="local.update" var="update" />
 <fmt:message bundle="${loc}" key="local.delete" var="delete" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
 
 <div class="row" id="accordion">
 	<div class="collapse collapse-horizontal show" id="info"
@@ -89,7 +92,7 @@
 			<div class="row">
 				<div class="col">
 					<input type="button" class="btn btn-dark btn-outline-light"
-						onclick="javascript: post('#update', '#main', 'userDitails/update')"
+						onclick="javascript: post('#update', '#main', 'userDitails/auth/update')"
 						value="${update}">
 				</div>
 			</div>
@@ -115,7 +118,7 @@
 			<div class="row">
 				<div class="col">
 					<input type="button" class="btn btn-dark btn-outline-light"
-						onclick="javascript: login('#pass','#error','users/updatePassword')"
+						onclick="javascript: login('#pass','#error','users/auth/updatePassword')"
 						value="${update}">
 				</div>
 			</div>
@@ -131,7 +134,7 @@
 				<div class="col">
 					<input type="button" class="btn btn-dark btn-outline-light"
 						value="${delete}"
-						onclick="javascript: login('#delete','#error','users/delete')">
+						onclick="javascript: login('#delete','#error','users/auth/delete')">
 				</div>
 			</div>
 		</form>

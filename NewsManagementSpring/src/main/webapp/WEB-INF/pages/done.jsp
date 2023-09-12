@@ -8,6 +8,10 @@
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.done" var="done" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 <div class="toast fade show" role="alert">
 	<div class="toast-header">
 		<svg class="bd-placeholder-img rounded me-2" width="20" height="20">

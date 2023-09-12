@@ -9,6 +9,10 @@
 <fmt:message bundle="${loc}" key="local.delete" var="delete" />
 <fmt:message bundle="${loc}" key="local.file" var="file" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 
 <div class="row">
 	<div class="col">
@@ -16,7 +20,7 @@
 			<input type="hidden" name="dir" value="${dir}"> <input
 				type="file" name="file" /> <input type="button"
 				class="btn btn-dark btn-outline-light" value="${upload}"
-				onclick="javascript: multipart('#uploadFile', '#main', 'files/upload')">
+				onclick="javascript: multipart('#uploadFile', '#main', 'files/admin/upload')">
 		</form>
 	</div>
 </div>
@@ -40,7 +44,7 @@
 								type="hidden" name="link" value="${file}"> <input
 								type="file" name="file" /> <input type="button"
 								class="btn btn-dark btn-outline-light" value="${update}"
-								onclick="javascript: multipart('#update_${loop.index}', '#main', 'files/update')">
+								onclick="javascript: multipart('#update_${loop.index}', '#main', 'files/admin/update')">
 						</form>
 					</td>
 					<td>
@@ -49,7 +53,7 @@
 								type="hidden" name="link" value="${file}"> <input
 								type="button" class="btn btn-dark btn-outline-light"
 								value="${delete}"
-								onclick="javascript: post('#delete_${loop.index}', '#main', 'files/delete')">
+								onclick="javascript: post('#delete_${loop.index}', '#main', 'files/admin/delete')">
 						</form>
 					</td>
 				</tr>

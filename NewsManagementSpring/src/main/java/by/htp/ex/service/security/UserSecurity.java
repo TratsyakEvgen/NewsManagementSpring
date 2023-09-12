@@ -15,14 +15,14 @@ import jakarta.transaction.Transactional;
 public class UserSecurity implements UserDetailsService {
 
 	@Autowired
-	private UserDAO dao;
+	private UserDAO userDAO;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = User.builder().username(username).build();
 		try {
-			user = dao.getByFields(user).orElseThrow(() -> new UsernameNotFoundException(username));
+			user = userDAO.getByFields(user).orElseThrow(() -> new UsernameNotFoundException(username));
 			if (!user.getStatus()) {
 				throw new UsernameNotFoundException(username);
 			}

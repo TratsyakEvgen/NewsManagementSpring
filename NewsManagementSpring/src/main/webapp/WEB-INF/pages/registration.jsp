@@ -22,6 +22,10 @@
 <fmt:message bundle="${loc}" key="local.register" var="register" />
 
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 <div
 	class="container d-flex h-100 justify-content-center align-items-center">
 	<div class="row text-bg-dark rounded p-3">

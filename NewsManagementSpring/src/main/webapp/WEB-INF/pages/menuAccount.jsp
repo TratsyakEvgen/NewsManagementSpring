@@ -10,6 +10,9 @@
 <fmt:message bundle="${loc}" key="local.delete" var="delete" />
 <fmt:message bundle="${loc}" key="local.back" var="back" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
 
 <ul class="nav flex-column">
 

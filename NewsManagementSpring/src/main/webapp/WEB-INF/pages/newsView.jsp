@@ -16,6 +16,10 @@
 <c:set var="content" value="${news.contents.get(0)}"></c:set>
 <c:set var="user" value="${sessionScope.user}"></c:set>
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 
 <div class="row">
 	<div class="d-flex flex-row  mb-3">

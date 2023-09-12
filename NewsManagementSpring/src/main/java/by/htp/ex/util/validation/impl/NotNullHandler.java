@@ -5,30 +5,21 @@ import java.util.List;
 
 import by.htp.ex.util.ErrorCode;
 import by.htp.ex.util.validation.AbstractAnnatationHandler;
-import by.htp.ex.util.validation.annatation.Equal;
+import by.htp.ex.util.validation.annatation.NotNull;
 import jakarta.xml.bind.ValidationException;
 
-public class EqualHandler extends AbstractAnnatationHandler {
+public class NotNullHandler extends AbstractAnnatationHandler{
 
 	@Override
 	public <T> List<ErrorCode> check(List<ErrorCode> codes, Field field, T object) throws ValidationException {
-		Equal annatation = field.getAnnotation(Equal.class);
-
-		String fieldName = annatation.field();
-		Field checkField = null;
-		try {
-			checkField = object.getClass().getDeclaredField(fieldName);
-			checkField.setAccessible(true);
-			Object checkObject = checkField.get(object);
-			if (!field.get(object).equals(checkObject)) {
+		NotNull annatation = field.getAnnotation(NotNull.class);		
+		try {	
+			if (field.get(object) == null || field.get(object).toString().isEmpty()) {
 				codes = addMessage(codes, annatation.message());
 			}
 		} catch (IllegalArgumentException | IllegalAccessException | NullPointerException e) {
 			throw new ValidationException("Can't get field value", e);
-		} catch (NoSuchFieldException e) {
-			throw new ValidationException("Doesn't have a field " + fieldName, e);
 		}
-
 		return codes;
 	}
 

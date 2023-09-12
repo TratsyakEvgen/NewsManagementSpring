@@ -12,7 +12,9 @@
 	var="enter_password" />
 <fmt:message bundle="${loc}" key="local.sign.in" var="sign_in" />
 
-
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
 
 <div
 	class="container d-flex h-100 justify-content-center align-items-center">

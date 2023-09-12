@@ -16,6 +16,11 @@
 <fmt:message bundle="${loc}" key="local.add" var="add" />
 <fmt:message bundle="${loc}" key="local.select" var="select_loc" />
 
+
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
+
 <c:if test="${select}">
 	<c:set var="element" value="#select"></c:set>
 </c:if>
@@ -37,7 +42,7 @@
 				<div class="col">
 					<input type="button" class="btn btn-dark btn-outline-light "
 						value="${save}"
-						onclick="javascript: post('#add', '${element}', 'images/add')">
+						onclick="javascript: post('#add', '${element}', 'images/admin/add')">
 				</div>
 			</div>
 		</div>
@@ -75,12 +80,12 @@
 					</select> <label class="form-label">${save}:</label> <input type="button"
 						class="btn btn-dark btn-outline-light form-control"
 						value="${save}"
-						onclick="javascript: post('#update_${image.id}', '${element}', 'images/update')">
+						onclick="javascript: post('#update_${image.id}', '${element}', 'images/admin/update')">
 				</form>
 			</div>
 			<c:if test="${select}">
 				<input type="button" class="btn btn-dark btn-outline-light"
-				onclick="javascript: $('#idImage').val(${image.id}); post('#addImage', '#main', 'news/addImage')"
+				onclick="javascript: $('#idImage').val(${image.id}); post('#addImage', '#main', 'news/admin/addImage')"
 					value="${select_loc}">
 			</c:if>
 

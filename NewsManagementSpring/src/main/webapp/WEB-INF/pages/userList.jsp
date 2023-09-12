@@ -20,6 +20,9 @@
 <fmt:message bundle="${loc}" key="local.admin" var="admin" />
 <fmt:message bundle="${loc}" key="local.deleted" var="deleted" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
 
 <div class="row table-responsive">
 	<table class="table table-hover">
@@ -53,7 +56,7 @@
 					<td><fmt:formatDate type="date" value="${user.ditails.date}" /></td>
 
 					<td><select class="form-select" name="role"
-						onchange="javascript: postNoUpdate('#${loop.index}', 'users/updateRole')"
+						onchange="javascript: postNoUpdate('#${loop.index}', 'users/admin/updateRole')"
 						form="${loop.index}">
 							<option value="user"
 								<c:if test="${user.role.role == 'user'}">selected</c:if>>${user_local}</option>
@@ -62,7 +65,7 @@
 					</select></td>
 
 					<td><select class="form-select" name="status"
-						onchange="javascript: postNoUpdate('#${loop.index}', 'users/updateStatus')"
+						onchange="javascript: postNoUpdate('#${loop.index}', 'users/admin/updateStatus')"
 						form="${loop.index}">
 							<option value="true" <c:if test="${user.status}">selected</c:if>>${active}</option>
 							<option value="false"
@@ -72,7 +75,7 @@
 					<c:if test="${select}">
 						<td><input type="button"
 							class="btn btn-dark btn-outline-light"
-							onclick="javascript: $('#idUser').val(${user.id}); post('#addUser', '#main', 'news/addUser')"
+							onclick="javascript: $('#idUser').val(${user.id}); post('#addUser', '#main', 'news/admin/addUser')"
 							value="${select_loc}"></td>
 					</c:if>
 

@@ -3,8 +3,10 @@ package by.htp.ex.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.ImageDAO;
@@ -26,9 +28,9 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private UserDitailsDAO userDitailsDAO;
-	
+
 	@Autowired
-	private ImageDAO imageDAO;
+	private ImageDAO imageDAO;	
 
 	@Override
 	@Transactional
@@ -86,14 +88,14 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public News create(String username) throws ServiceException {
+	public int create(String username) throws ServiceException {
 		try {
 			UserDitails details = userDitailsDAO.getByUsername(username)
 					.orElseThrow(() -> new ServiceException(ErrorCode.USER_NOT_FOUND));
 			News news = News.builder().dateTime(new Timestamp(System.currentTimeMillis())).userDitails(details)
 					.status(false).build();
 			newsDAO.create(news);
-			return news;
+			return news.getId();
 		} catch (DaoException e) {
 			throw new ServiceException("Can't create news", e);
 		}
@@ -102,7 +104,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public News get(int id) throws ServiceException {		
+	public News get(int id) throws ServiceException {
 		try {
 			return newsDAO.getNewsFetchAll(id).orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
 		} catch (DaoException e) {
@@ -112,29 +114,27 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public News addImage(int idNews, int idImage) throws ServiceException {
+	public void addImage(int idNews, int idImage) throws ServiceException {
 		try {
-			Image image = imageDAO.get(idImage).orElseThrow(()-> new ServiceException(ErrorCode.IMAGES_NOT_FOUND));
-			News news  = newsDAO.get(idNews).orElseThrow(()-> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
+			Image image = imageDAO.get(idImage).orElseThrow(() -> new ServiceException(ErrorCode.IMAGES_NOT_FOUND));
+			News news = newsDAO.get(idNews).orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
 			List<Image> images = news.getImages();
 			if (images.contains(image)) {
 				throw new ServiceException(ErrorCode.IMAGE_ALREADY_EXIST);
 			}
 			news.getImages().add(image);
-			return news;
 		} catch (DaoException e) {
 			throw new ServiceException("Can't add image in news", e);
 		}
 	}
-	
+
 	@Override
 	@Transactional
-	public News deleteImage(int idNews, int idImage) throws ServiceException {
+	public void deleteImage(int idNews, int idImage) throws ServiceException {
 		try {
-			Image image = imageDAO.get(idImage).orElseThrow(()-> new ServiceException(ErrorCode.IMAGES_NOT_FOUND));
-			News news  = newsDAO.get(idNews).orElseThrow(()-> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
+			Image image = imageDAO.get(idImage).orElseThrow(() -> new ServiceException(ErrorCode.IMAGES_NOT_FOUND));
+			News news = newsDAO.get(idNews).orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
 			news.getImages().remove(image);
-			return news;
 		} catch (DaoException e) {
 			throw new ServiceException("Can't delete image in news", e);
 		}
@@ -142,12 +142,12 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	@Transactional
-	public News addUser(int idNews, int idUser) throws ServiceException {
+	public void addUser(int idNews, int idUser) throws ServiceException {
 		try {
-			UserDitails user = userDitailsDAO.get(idUser).orElseThrow(()->new ServiceException(ErrorCode.USER_NOT_FOUND));
-			News news  = newsDAO.get(idNews).orElseThrow(()-> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
+			UserDitails user = userDitailsDAO.get(idUser)
+					.orElseThrow(() -> new ServiceException(ErrorCode.USER_NOT_FOUND));
+			News news = newsDAO.get(idNews).orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
 			news.setUserDitails(user);
-			return news;
 		} catch (DaoException e) {
 			throw new ServiceException("Can't add user in news", e);
 		}
@@ -157,12 +157,14 @@ public class NewsServiceImpl implements NewsService {
 	@Transactional
 	public void updateStatus(int idNews, boolean status) throws ServiceException {
 		try {
-			News news  = newsDAO.get(idNews).orElseThrow(()-> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
+			News news = newsDAO.get(idNews).orElseThrow(() -> new ServiceException(ErrorCode.NEWS_NOT_FOUND));
 			news.setStatus(status);
 		} catch (DaoException e) {
 			throw new ServiceException("Can't update status in news", e);
 		}
-		
+
 	}
+
+	
 
 }

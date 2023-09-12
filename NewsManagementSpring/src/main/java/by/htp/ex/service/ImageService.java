@@ -4,7 +4,6 @@ import java.util.List;
 
 import by.htp.ex.model.entity.Image;
 
-
 public interface ImageService {
 
 	List<Image> getAllImages() throws ServiceException;

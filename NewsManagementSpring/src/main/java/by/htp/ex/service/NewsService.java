@@ -14,16 +14,15 @@ public interface NewsService {
 
 	public News getNewsByIdandLocaleContent(int idNews, String locale) throws ServiceException;
 
-	public News create(String username) throws ServiceException;
+	public int create(String username) throws ServiceException;
 
 	public News get(int id) throws ServiceException;
 	
-	public News addImage(int idNews, int idImage) throws ServiceException;
+	public void addImage(int idNews, int idImage) throws ServiceException;
 	
-	public News addUser(int idNews, int idUser) throws ServiceException;
+	public void addUser(int idNews, int idUser) throws ServiceException;
 	
-	public News deleteImage(int idNews, int idImage) throws ServiceException;
+	public void deleteImage(int idNews, int idImage) throws ServiceException;
 	
 	public void updateStatus(int idNews, boolean status) throws ServiceException;
-
 }

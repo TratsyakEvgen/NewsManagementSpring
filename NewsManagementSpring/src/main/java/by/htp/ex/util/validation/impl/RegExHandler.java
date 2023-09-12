@@ -4,10 +4,11 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import by.htp.ex.util.ErrorCode;
+import by.htp.ex.util.validation.AbstractAnnatationHandler;
 import by.htp.ex.util.validation.annatation.RegEx;
 import jakarta.xml.bind.ValidationException;
 
-public class RegExHandler extends AnnatationHandlerImpl{
+public class RegExHandler extends AbstractAnnatationHandler{
 
 	@Override
 	public <T> List<ErrorCode> check(List<ErrorCode> codes, Field field, T object) throws ValidationException {

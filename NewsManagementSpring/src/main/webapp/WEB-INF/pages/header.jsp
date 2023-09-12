@@ -21,6 +21,9 @@
 	var="control_panel" />
 <fmt:message bundle="${loc}" key="local.registration" var="registration" />
 
+<script>
+   $("#csrf").val("${_csrf.token}");
+</script>
 
 <div class="container-fluid">
 	<form id="logout">
@@ -36,7 +39,7 @@
 						href="javascript: get('menu', '#menu', 'menuControlPanel')">${control_panel}</a></li>
 				</security:authorize>
 				<li><a
-					href="javascript: get('menu', '#menu', 'menuAccount'); get('main', '#main', 'userDitails/account')"
+					href="javascript: get('menu', '#menu', 'menuAccount'); get('main', '#main', 'userDitails/auth/account')"
 					class="dropdown-item">${profile}</a></li>
 				<li><a href="javascript: login('#logout', '#main','logout')"
 					class="dropdown-item">${sign_out}</a></li>

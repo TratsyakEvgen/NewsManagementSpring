@@ -197,7 +197,7 @@
 			</div>
 
 			<main class="col-md-8 ms-sm-auto col-lg-9 px-md-4">
-				<div class="container" id="main"></div>
+				<div class="container h-100" id="main"></div>
 			</main>
 		</div>
 	</div>

@@ -1,14 +1,13 @@
-package by.htp.ex.util.validation.impl;
+package by.htp.ex.util.validation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import by.htp.ex.util.ErrorCode;
-import by.htp.ex.util.validation.AnnatationHandler;
 import jakarta.xml.bind.ValidationException;
 
-public abstract class AnnatationHandlerImpl implements AnnatationHandler{
+public abstract class AbstractAnnatationHandler implements AnnatationHandler{
 	
 	@Override
 	public abstract <T> List<ErrorCode> check(List<ErrorCode> codes, Field field, T object) throws ValidationException;

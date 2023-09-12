@@ -17,7 +17,7 @@ import by.htp.ex.service.ImageService;
 import by.htp.ex.service.ServiceException;
 
 @Controller
-@RequestMapping("/images")
+@RequestMapping("/images/admin")
 @SessionAttributes("errorCodes")
 public class ImageController {
 
@@ -25,7 +25,7 @@ public class ImageController {
 	private ImageService imageService;
 
 	@GetMapping("/get")
-	private String getAll(@RequestParam(required = false, defaultValue = "false") boolean select, Model model) {
+	private String getAll(@RequestParam(value = "select", required = false, defaultValue = "false") boolean select, Model model) {
 		try {
 			List<Image> images = imageService.getAllImages();
 			model.addAttribute("images", images);
@@ -38,7 +38,7 @@ public class ImageController {
 	}
 
 	@PostMapping("/add")
-	private String add(Model model, @RequestParam String link) {
+	private String add(Model model, @RequestParam("link") String link) {
 		try {
 			imageService.add(link);
 		} catch (ServiceException e) {

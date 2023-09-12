@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @EnableWebSecurity
 public class SecurityWebConfig {
@@ -15,11 +16,13 @@ public class SecurityWebConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	};
-
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().disable().and().authorizeHttpRequests().requestMatchers("/**").permitAll()
-				.requestMatchers("/files/**").hasRole("admin").and().formLogin().loginPage("/login")
+		http.headers().frameOptions().disable().and().authorizeHttpRequests()
+				.requestMatchers(new RegexRequestMatcher(".*/admin/.*", null)).hasRole("admin")
+				.requestMatchers(new RegexRequestMatcher(".*/auth/.*", null)).authenticated()
+				.anyRequest().permitAll().and().formLogin().loginPage("/login")
 				.defaultSuccessUrl("/news/newsCarousel").failureUrl("/loginError").and().logout()
 				.logoutSuccessUrl("/news/newsCarousel");
 		return http.build();

@@ -17,7 +17,7 @@ import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.UserDitailsService;
 
 @Controller
-@RequestMapping("/userDitails")
+@RequestMapping("/userDitails/auth")
 @SessionAttributes("errorCodes")
 public class UserDitailsController {
 
@@ -39,12 +39,11 @@ public class UserDitailsController {
 	@PostMapping("/update")
 	public String update(Model model, @ModelAttribute UserDitailsData data, Principal principal) {
 		try {
-			UserDitails ditails = service.update(principal.getName(), data);
-			model.addAttribute("user", ditails);
+			service.update(principal.getName(), data);
 		} catch (ServiceException e) {
 			return ErrorHandler.handle(e, model);
 		}
-		return "account";
+		return "redirect: account";
 
 	}
 

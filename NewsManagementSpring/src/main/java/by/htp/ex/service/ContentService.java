@@ -1,10 +1,12 @@
 package by.htp.ex.service;
 
-import java.util.List;
-
-import by.htp.ex.model.entity.Content;
-import by.htp.ex.model.entity.Locale;
+import by.htp.ex.model.bean.ContentData;
 
 public interface ContentService {
-	public List<Content> getNewslineByLocale(Locale locale);
+	public void addContent(ContentData data) throws ServiceException;
+
+	public void updateContent(ContentData data) throws ServiceException;
+
+	public void deleteContent(int id) throws ServiceException;
+
 }
